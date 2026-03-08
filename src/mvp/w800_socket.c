@@ -250,8 +250,8 @@ int w800_socket_send(int socket, const uint8_t * data, size_t size)
         uint32_t request_size = (remaining > (size_t) W800_SKSND_MAX_CHUNK)
                                 ? W800_SKSND_MAX_CHUNK
                                 : (uint32_t) remaining;
-        /* Drain stale async data before first SKSND attempt of each chunk. */
-        w800_uart_drain_rx();
+        uint32_t backoff_ms = W800_SKSND_BACKOFF_MS;
+        uint32_t retry_count = 0U;
 
         for (;;)
         {
@@ -273,9 +273,14 @@ int w800_socket_send(int socket, const uint8_t * data, size_t size)
                 break;
             }
 
-            /* Log W800 error detail (read_until_ok_line copies +ERR text). */
-            LOGW("SKSND W800: %s (sent=%lu/%lu)",
-                 line, (unsigned long) sent, (unsigned long) size);
+            /* SKSND returned an error. */
+            retry_count++;
+            LOGW("SKSND ERR: %s (sent=%lu/%lu retry=%lu backoff=%lums)",
+                 line,
+                 (unsigned long) sent,
+                 (unsigned long) size,
+                 (unsigned long) retry_count,
+                 (unsigned long) backoff_ms);
 
             /* Check if TCP connection is still alive. */
             {
@@ -290,6 +295,15 @@ int w800_socket_send(int socket, const uint8_t * data, size_t size)
                 }
             }
 
+            if (retry_count >= W800_SKSND_MAX_RETRY)
+            {
+                LOGE("SKSND max retries (%u) reached, sent=%lu/%lu",
+                     (unsigned) W800_SKSND_MAX_RETRY,
+                     (unsigned long) sent,
+                     (unsigned long) size);
+                return MVP_ERR_AT;
+            }
+
             if ((int32_t) (w800_now_ms() - deadline) >= 0)
             {
                 LOGE("SKSND deadline expired, sent=%lu/%lu",
@@ -297,8 +311,13 @@ int w800_socket_send(int socket, const uint8_t * data, size_t size)
                 return MVP_ERR_TIMEOUT;
             }
 
+            /* Exponential backoff: drain stale data then wait. */
             w800_uart_drain_rx();
-            R_BSP_SoftwareDelay(200U, BSP_DELAY_UNITS_MILLISECONDS);
+            R_BSP_SoftwareDelay(backoff_ms, BSP_DELAY_UNITS_MILLISECONDS);
+            if (backoff_ms < 1000U)
+            {
+                backoff_ms *= 2U;
+            }
         }
 
         rc = parse_ok_value(line, &actual_size);

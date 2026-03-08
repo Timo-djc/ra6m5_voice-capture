@@ -113,8 +113,10 @@ int cloud_client_upload_wav_once(const uint8_t * wav, size_t wav_size)
         goto cleanup;
     }
 
-    /* Header occupies W800 TCP buffer; wait for it to drain before body. */
-    R_BSP_SoftwareDelay(500U, BSP_DELAY_UNITS_MILLISECONDS);
+    /* W800 needs time to flush the header over TCP before accepting new SKSND
+     * commands for the body.  A passive delay is safer than issuing AT commands
+     * (like SKSTT) which can themselves be rejected while the module is busy. */
+    R_BSP_SoftwareDelay(300U, BSP_DELAY_UNITS_MILLISECONDS);
 
     rc = w800_socket_send(sock, wav, wav_size);
     if (MVP_OK != rc)

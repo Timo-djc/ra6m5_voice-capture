@@ -29,7 +29,8 @@
 #define W800_UART_RX_BUF_SIZE  (8192U)
 #define W800_LINE_BUF_SIZE     (384U)
 #define W800_SKSND_MAX_CHUNK   (512U)
-#define W800_SKSND_RETRY_MS    (30U)
+#define W800_SKSND_MAX_RETRY   (8U)
+#define W800_SKSND_BACKOFF_MS  (100U)    /* initial backoff; doubles each retry */
 
 #define CLOUD_RX_BUFFER_SIZE   (12288U)
 #define CLOUD_TEXT_MAX_LEN     (256U)
