@@ -1,0 +1,156 @@
+*** Using Compiler 'V6.24', folder: 'D:\keil_v5\keil\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+Note: source file 'D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2/tensorflow/lite/kernels/kernel_util.cpp' - object file renamed from '.\Objects\kernel_util.o' to '.\Objects\kernel_util_1.o'.compiling bsp_group_irq.c...
+src/drivers/drv_lcd.c(114): warning: unused function 'LCDDrvWriteBuf' [-Wunused-function]
+  114 | static void LCDDrvWriteBuf(uint8_t* buf, uint32_t size)
+      |             ^~~~~~~~~~~~~~
+src/drivers/drv_lcd.c(30): warning: unused variable 'gFlagWaitTX' [-Wunused-variable]
+   30 | static volatile bool gFlagWaitTX = 0;
+      |                      ^~~~~~~~~~~
+2 warnings generated.
+compiling drv_lcd.c...
+src/ui/lcd_draw.c(127): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  127 |             ptDispDev->SetPixel(ptDispDev, x0 + x, y0 + y, color);
+      |             ~~~~~~~~~                              ~~~^~~
+src/ui/lcd_draw.c(127): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  127 |             ptDispDev->SetPixel(ptDispDev, x0 + x, y0 + y, color);
+      |             ~~~~~~~~~                      ~~~^~~
+src/ui/lcd_draw.c(128): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  128 |             ptDispDev->SetPixel(ptDispDev, x0 + y, y0 + x, color);
+      |             ~~~~~~~~~                              ~~~^~~
+src/ui/lcd_draw.c(128): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  128 |             ptDispDev->SetPixel(ptDispDev, x0 + y, y0 + x, color);
+      |             ~~~~~~~~~                      ~~~^~~
+src/ui/lcd_draw.c(131): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  131 |             ptDispDev->SetPixel(ptDispDev, x0 + x, y0 - y, color);
+      |             ~~~~~~~~~                              ~~~^~~
+src/ui/lcd_draw.c(131): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  131 |             ptDispDev->SetPixel(ptDispDev, x0 + x, y0 - y, color);
+      |             ~~~~~~~~~                      ~~~^~~
+src/ui/lcd_draw.c(132): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  132 |             ptDispDev->SetPixel(ptDispDev, x0 + y, y0 - x, color);
+      |             ~~~~~~~~~                              ~~~^~~
+src/ui/lcd_draw.c(132): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  132 |             ptDispDev->SetPixel(ptDispDev, x0 + y, y0 - x, color);
+      |             ~~~~~~~~~                      ~~~^~~
+src/ui/lcd_draw.c(135): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  135 |             ptDispDev->SetPixel(ptDispDev, x0 - y, y0 + x, color);
+      |             ~~~~~~~~~                              ~~~^~~
+src/ui/lcd_draw.c(135): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  135 |             ptDispDev->SetPixel(ptDispDev, x0 - y, y0 + x, color);
+      |             ~~~~~~~~~                      ~~~^~~
+src/ui/lcd_draw.c(136): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  136 |             ptDispDev->SetPixel(ptDispDev, x0 - x, y0 + y, color);
+      |             ~~~~~~~~~                              ~~~^~~
+src/ui/lcd_draw.c(136): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  136 |             ptDispDev->SetPixel(ptDispDev, x0 - x, y0 + y, color);
+      |             ~~~~~~~~~                      ~~~^~~
+src/ui/lcd_draw.c(139): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  139 |             ptDispDev->SetPixel(ptDispDev, x0 - y, y0 - x, color);
+      |             ~~~~~~~~~                              ~~~^~~
+src/ui/lcd_draw.c(139): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  139 |             ptDispDev->SetPixel(ptDispDev, x0 - y, y0 - x, color);
+      |             ~~~~~~~~~                      ~~~^~~
+src/ui/lcd_draw.c(140): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  140 |             ptDispDev->SetPixel(ptDispDev, x0 - x, y0 - y, color);
+      |             ~~~~~~~~~                              ~~~^~~
+src/ui/lcd_draw.c(140): warning: implicit conversion loses integer precision: 'int' to 'unsigned short' [-Wimplicit-int-conversion]
+  140 |             ptDispDev->SetPixel(ptDispDev, x0 - x, y0 - y, color);
+      |             ~~~~~~~~~                      ~~~^~~
+src/ui/lcd_draw.c(163): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  163 |             LCD_DrawLine(x0 + x, y0 - y, x0 + x, y0 - y + 2 * y + 1 + delta, color);
+      |             ~~~~~~~~~~~~                         ~~~~~~~~~~~~~~~~~~~^~~~~~~
+src/ui/lcd_draw.c(163): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  163 |             LCD_DrawLine(x0 + x, y0 - y, x0 + x, y0 - y + 2 * y + 1 + delta, color);
+      |             ~~~~~~~~~~~~                 ~~~^~~
+src/ui/lcd_draw.c(163): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  163 |             LCD_DrawLine(x0 + x, y0 - y, x0 + x, y0 - y + 2 * y + 1 + delta, color);
+      |             ~~~~~~~~~~~~         ~~~^~~
+src/ui/lcd_draw.c(163): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  163 |             LCD_DrawLine(x0 + x, y0 - y, x0 + x, y0 - y + 2 * y + 1 + delta, color);
+      |             ~~~~~~~~~~~~ ~~~^~~
+src/ui/lcd_draw.c(164): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  164 |             LCD_DrawLine(x0 + y, y0 - x, x0 + y, y0 - x + 2 * x + 1 + delta, color);
+      |             ~~~~~~~~~~~~                         ~~~~~~~~~~~~~~~~~~~^~~~~~~
+src/ui/lcd_draw.c(164): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  164 |             LCD_DrawLine(x0 + y, y0 - x, x0 + y, y0 - x + 2 * x + 1 + delta, color);
+      |             ~~~~~~~~~~~~                 ~~~^~~
+src/ui/lcd_draw.c(164): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  164 |             LCD_DrawLine(x0 + y, y0 - x, x0 + y, y0 - x + 2 * x + 1 + delta, color);
+      |             ~~~~~~~~~~~~         ~~~^~~
+src/ui/lcd_draw.c(164): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  164 |             LCD_DrawLine(x0 + y, y0 - x, x0 + y, y0 - x + 2 * x + 1 + delta, color);
+      |             ~~~~~~~~~~~~ ~~~^~~
+src/ui/lcd_draw.c(167): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  167 |             LCD_DrawLine(x0 - x, y0 - y, x0 - x, y0 - y + 2 * y + 1 + delta, color);
+      |             ~~~~~~~~~~~~                         ~~~~~~~~~~~~~~~~~~~^~~~~~~
+src/ui/lcd_draw.c(167): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  167 |             LCD_DrawLine(x0 - x, y0 - y, x0 - x, y0 - y + 2 * y + 1 + delta, color);
+      |             ~~~~~~~~~~~~                 ~~~^~~
+src/ui/lcd_draw.c(167): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  167 |             LCD_DrawLine(x0 - x, y0 - y, x0 - x, y0 - y + 2 * y + 1 + delta, color);
+      |             ~~~~~~~~~~~~         ~~~^~~
+src/ui/lcd_draw.c(167): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  167 |             LCD_DrawLine(x0 - x, y0 - y, x0 - x, y0 - y + 2 * y + 1 + delta, color);
+      |             ~~~~~~~~~~~~ ~~~^~~
+src/ui/lcd_draw.c(168): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  168 |             LCD_DrawLine(x0 - y, y0 - x, x0 - y, y0 - x + 2 * x + 1 + delta, color);
+      |             ~~~~~~~~~~~~                         ~~~~~~~~~~~~~~~~~~~^~~~~~~
+src/ui/lcd_draw.c(168): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  168 |             LCD_DrawLine(x0 - y, y0 - x, x0 - y, y0 - x + 2 * x + 1 + delta, color);
+      |             ~~~~~~~~~~~~                 ~~~^~~
+src/ui/lcd_draw.c(168): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  168 |             LCD_DrawLine(x0 - y, y0 - x, x0 - y, y0 - x + 2 * x + 1 + delta, color);
+      |             ~~~~~~~~~~~~         ~~~^~~
+src/ui/lcd_draw.c(168): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  168 |             LCD_DrawLine(x0 - y, y0 - x, x0 - y, y0 - x + 2 * x + 1 + delta, color);
+      |             ~~~~~~~~~~~~ ~~~^~~
+32 warnings generated.
+compiling lcd_draw.c...
+compiling bsp_io.c...
+compiling hal_entry.c...
+compiling bsp_ospi_b.c...
+compiling drv_spi0_manual.c...
+compiling bsp_irq.c...
+compiling bsp_delay.c...
+compiling bsp_security.c...
+compiling bsp_ipc.c...
+compiling bsp_guard.c...
+compiling bsp_linker.c...
+compiling startup.c...
+compiling bsp_register_protection.c...
+compiling system.c...
+compiling bsp_sdram.c...
+compiling bsp_common.c...
+compiling bsp_macl.c...
+compiling drv_touch.c...
+compiling r_dtc.c...
+compiling bsp_clocks.c...
+compiling r_gpt.c...
+compiling r_ioport.c...
+src/audio_capture.c(655): warning: unused variable 'payload_idx' [-Wunused-variable]
+  655 |     uint32_t payload_idx = 4;
+      |              ^~~~~~~~~~~
+src/audio_capture.c(58): warning: unused variable 's_dc_estimate' [-Wunused-variable]
+   58 | static float s_dc_estimate = 0.0f;
+      |              ^~~~~~~~~~~~~
+src/audio_capture.c(111): warning: unused function 'adpcm_encode_sample' [-Wunused-function]
+  111 | static uint8_t adpcm_encode_sample(int16_t sample, adpcm_state_t *state)
+      |                ^~~~~~~~~~~~~~~~~~~
+src/audio_capture.c(167): warning: unused function 'cobs_encode' [-Wunused-function]
+  167 | static uint32_t cobs_encode(const uint8_t *src, uint32_t length, uint8_t *dst)
+      |                 ^~~~~~~~~~~
+4 warnings generated.
+compiling audio_capture.c...
+compiling main.c...
+compiling pin_data.c...
+compiling vector_data.c...
+compiling common_data.c...
+compiling r_sci_i2c.c...
+compiling hal_data.c...
+compiling r_sci_uart.c...
+compiling r_ssi.c...
+linking...
+Program Size: Code=83620 RO-data=547616 RW-data=436 ZI-data=445132  
+".\Objects\A_i2s_capture.axf" - 0 Error(s), 38 Warning(s).
+Build Time Elapsed:  00:00:04

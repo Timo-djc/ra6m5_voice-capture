@@ -1,0 +1,7 @@
+*** Using Compiler 'V6.24', folder: 'D:\keil_v5\keil\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+Note: source file 'D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2/tensorflow/lite/kernels/kernel_util.cpp' - object file renamed from '.\Objects\kernel_util.o' to '.\Objects\kernel_util_1.o'.compiling drv_spi0_manual.c...
+linking...
+Program Size: Code=82220 RO-data=547432 RW-data=436 ZI-data=445044  
+".\Objects\A_i2s_capture.axf" - 0 Error(s), 0 Warning(s).
+Build Time Elapsed:  00:00:02

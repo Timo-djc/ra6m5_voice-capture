@@ -1,0 +1,87 @@
+﻿python : In file included from D:\keil_v5\keil\tensorflow\tensorflow-lite-micro\1.25.2\tensorflow\lite\kernels\kernel_u
+til.cpp:31:
+所在位置 行:2 字符: 1
++ python .\tools\build_prebuilt_libs.py 2>&1 | Out-File prebuilt_build. ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (In file include...el_util.cpp:31::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2\tensorflow/lite/context_util.h:45:38: warning: implicit convers
+ion changes signedness: 'int' to 'size_t' (aka 'unsigned int') [-Wsign-conversion]
+   45 |   size_t size() const { return end() - begin(); }
+      |                         ~~~~~~ ~~~~~~^~~~~~~~~
+In file included from D:\keil_v5\keil\tensorflow\tensorflow-lite-micro\1.25.2\tensorflow\lite\kernels\kernel_util.cpp:3
+5:
+In file included from D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2\tensorflow/lite/kernels/internal/quantiza
+tion_util.h:23:
+In file included from D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2\tensorflow/lite/kernels/internal/types.h:
+25:
+D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2\tensorflow/lite/kernels/internal/runtime_shape.h:60:53: warning
+: implicit conversion changes signedness: 'const int32_t' (aka 'const int') to 'unsigned int' [-Wsign-conversion]
+   60 |            std::memcmp(DimsData(), comp.DimsData(), size_ * sizeof(int32_t)) ==
+      |                                                     ^~~~~ ~
+D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2\tensorflow/lite/kernels/internal/runtime_shape.h:91:38: warning
+: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+   91 |     std::memcpy(dst_dims, dims_data, dimensions_count * sizeof(int32_t));
+      |                                      ^~~~~~~~~~~~~~~~ ~
+D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2\tensorflow/lite/kernels/internal/runtime_shape.h:119:41: warnin
+g: implicit conversion changes signedness: 'int32_t' (aka 'int') to 'unsigned int' [-Wsign-conversion]
+  119 |                 sizeof(int32_t) * shape.DimensionsCount());
+      |                                 ~ ~~~~~~^~~~~~~~~~~~~~~~~
+In file included from D:\keil_v5\keil\tensorflow\tensorflow-lite-micro\1.25.2\tensorflow\lite\kernels\kernel_util.cpp:3
+5:
+In file included from D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2\tensorflow/lite/kernels/internal/quantiza
+tion_util.h:23:
+D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2\tensorflow/lite/kernels/internal/types.h:141:56: warning: compa
+ring floating point with == or != is unsafe [-Wfloat-equal]
+  141 |   return qp1.zero_point == qp2.zero_point && qp1.scale == qp2.scale;
+      |                                              ~~~~~~~~~ ^  ~~~~~~~~~
+In file included from D:\keil_v5\keil\tensorflow\tensorflow-lite-micro\1.25.2\tensorflow\lite\kernels\kernel_util.cpp:3
+5:
+D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2\tensorflow/lite/kernels/internal/quantization_util.h:40:12: war
+ning: comparing floating point with == or != is unsafe [-Wfloat-equal]
+   40 |   if (rmin == rmax) {
+      |       ~~~~ ^  ~~~~
+D:\keil_v5\keil\tensorflow\tensorflow-lite-micro\1.25.2\tensorflow\lite\kernels\kernel_util.cpp:45:14: error: use of un
+declared identifier 'TfLiteIntArrayFree'; did you mean 'TfLiteIntArrayView'?
+   45 |       if (a) TfLiteIntArrayFree(a);
+      |              ^
+D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2\tensorflow/lite/context_util.h:32:7: note: 'TfLiteIntArrayView'
+ declared here
+   32 | class TfLiteIntArrayView {
+      |       ^
+D:\keil_v5\keil\tensorflow\tensorflow-lite-micro\1.25.2\tensorflow\lite\kernels\kernel_util.cpp:89:56: warning: unused 
+parameter 'context' [-Wunused-parameter]
+   89 | inline int ValidateTensorIndexing(const TfLiteContext* context, int index,
+      |                                                        ^
+D:\keil_v5\keil\tensorflow\tensorflow-lite-micro\1.25.2\tensorflow\lite\kernels\kernel_util.cpp:598:50: warning: unused
+ parameter 'tensor' [-Wunused-parameter]
+  598 | bool HasUnspecifiedDimension(const TfLiteTensor* tensor) {
+      |                                                  ^
+8 warnings and 1 error generated.
+Traceback (most recent call last):
+  File "D:\keil_v5\keil\PROJECT\A_i2s_capture\tools\build_prebuilt_libs.py", line 246, in <module>
+    sys.exit(main())
+  File "D:\keil_v5\keil\PROJECT\A_i2s_capture\tools\build_prebuilt_libs.py", line 236, in main
+    members = build_objects(lib_name, sources[lib_name], templates, args.verbose)
+  File "D:\keil_v5\keil\PROJECT\A_i2s_capture\tools\build_prebuilt_libs.py", line 185, in build_objects
+    run(cmd, ROOT)
+  File "D:\keil_v5\keil\PROJECT\A_i2s_capture\tools\build_prebuilt_libs.py", line 157, in run
+    subprocess.run(cmd, cwd=str(cwd), check=True)
+  File "C:\anaconda\lib\subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['D:\\keil_v5\\keil\\ARM\\ARMCLANG\\bin\\armclang.exe', '-xc++', '-std=c++11', 
+'--target=arm-arm-none-eabi', '-mcpu=cortex-m33', '-mfpu=fpv5-sp-d16', '-mfloat-abi=hard', '-c', '-fno-rtti', '-funsign
+ed-char', '-fno-exceptions', '-gdwarf-4', '-Oz', '-ffunction-sections', '-I', 'd:/keil_v5/keil/tensorflow/third_party/f
+latbuffers', '-I', 'd:/keil_v5/keil/tensorflow/third_party/kissfft', '-I', 'd:/keil_v5/keil/tensorflow/third_party/kiss
+fft/tools', '-I', 'd:/keil_v5/keil/tensorflow/third_party/tflite-micro', '-I', 'd:/keil_v5/keil/tensorflow/third_party'
+, '-Wno-license-management', '-Wunused', '-Wuninitialized', '-Wall', '-Wextra', '-Wmissing-declarations', '-Wconversion
+', '-Wpointer-arith', '-Wshadow', '-Waggregate-return', '-Wfloat-equal', '-I./RTE/_Target_1', '-I./ra/arm/CMSIS_6/CMSIS
+/Core/Include', '-I./ra/fsp/inc', '-I./ra/fsp/inc/api', '-I./ra/fsp/inc/instances', '-I./ra_cfg/fsp_cfg', '-I./ra_cfg/f
+sp_cfg/bsp', '-I./ra_gen', '-ID:/keil_v5/keil/ARM/CMSIS-DSP/1.17.0/Include', '-ID:/keil_v5/keil/ARM/CMSIS-DSP/1.17.0/Pr
+ivateInclude', '-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include', '-ID:/keil_v5/keil/PROJECT/A_i2s_capture', '-ID:
+/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2', '-ID:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2/tens
+orflow/lite/micro/testing', '-D__UVISION_VERSION="543"', '-D_RTE_', '-DARM_MATH_CM33', '-DTFLITE_SINGLE_ROUNDING', '-in
+clude', './RTE/_Target_1/Pre_Include_Global.h', '-include', './RTE/_Target_1/RTE_Components.h', '-o', 'D:\\keil_v5\\kei
+l\\PROJECT\\A_i2s_capture\\prebuilt\\obj\\tflm\\kernel_util_152f8fef9d.o', 'D:\\keil_v5\\keil\\tensorflow\\tensorflow-l
+ite-micro\\1.25.2\\tensorflow\\lite\\kernels\\kernel_util.cpp']' returned non-zero exit status 1.

@@ -1,0 +1,26 @@
+DIAG: GPT ch=1 clk=100000000Hz (for INMP441 slave mic)
+DIAG: GPT state=1 count=53
+DIAG: GPT GTIOR=0x00000106 GTCR=0x00000001
+DIAG: GPT GTPR=0x00000060 GTCCRA=0x0000002F GTCNT=0x00000030
+DIAG: SSICR=0x402B4200 SSIFCR=0x80000000
+DIAG: SSISR=0x02000000 SSISCR=0x00000F01
+DIAG: SSIFSR=0x00010000 SSIOFR=0x00000000
+DIAG: p_transfer_tx=SET p_transfer_rx=SET
+DIAG: txi_irq=0 rxi_irq=1 int_irq=2
+A_i2s_capture init: fs=16000Hz, frame=160, bytes=1280
+STAT_HEADER,t_sec,samples,fs_est,cb_count,cb_gap_max_us,rms,peak,clip,ovf,rst,err,read_ok,read_err,no_cb_to,sample_ok,cb_ok,error_ok,audio_ok,ws_edge,bck_edge,pin_err,ssi_state
+DIAG_START: writeRead err=0 started=1 mode=MASTER
+DIAG_START: SSICR=0x642B4203 SSISR=0x02000000 SSIFCR=0x8000000C
+INFO: Generating clock for INMP441 slave microphone...
+HINT: no WS/BCK edges. Check INMP441 wiring: SCK->P112 WS->P113 SD->P114 L/R->GND CHIPEN->VDD.
+STAT,1,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,1
+HINT: no WS/BCK edges. Check INMP441 wiring: SCK->P112 WS->P113 SD->P114 L/R->GND CHIPEN->VDD.
+STAT,2,0,0,0,0,0,0,0,0,1,1,1,0,2,0,0,0,0,0,0,0,1
+HINT: no WS/BCK edges. Check INMP441 wiring: SCK->P112 WS->P113 SD->P114 L/R->GND CHIPEN->VDD.
+STAT,3,0,0,0,0,0,0,0,0,1,1,1,0,3,0,0,0,0,0,0,0,1
+HINT: no WS/BCK edges. Check INMP441 wiring: SCK->P112 WS->P113 SD->P114 L/R->GND CHIPEN->VDD.
+STAT,4,0,0,0,0,0,0,0,0,1,1,1,0,4,0,0,0,0,0,0,0,1
+HINT: no WS/BCK edges. Check INMP441 wiring: SCK->P112 WS->P113 SD->P114 L/R->GND CHIPEN->VDD.
+STAT,5,0,0,0,0,0,0,0,0,1,1,1,0,5,0,0,0,0,0,0,0,1
+HINT: no WS/BCK edges. Check INMP441 wiring: SCK->P112 WS->P113 SD->P114 L/R->GND CHIPEN->VDD.
+STAT,6,0,0,0,0,0,0,0,0,1,1,1,0,6,0,0,0,0,0,0,0,1

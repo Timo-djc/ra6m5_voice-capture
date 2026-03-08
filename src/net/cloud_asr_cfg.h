@@ -1,0 +1,137 @@
+#ifndef CLOUD_ASR_CFG_H_
+#define CLOUD_ASR_CFG_H_
+
+#include "hal_data.h"
+#include <stdint.h>
+
+#ifndef ASR_MODE_CLOUD
+#define ASR_MODE_CLOUD (1)
+#endif
+
+#ifndef ASR_MODE_LOCAL
+#define ASR_MODE_LOCAL (0)
+#endif
+
+#if ((ASR_MODE_CLOUD + ASR_MODE_LOCAL) != 1)
+#error "Exactly one ASR mode must be enabled"
+#endif
+
+#ifndef W800_UART_TARGET_BAUD
+#define W800_UART_TARGET_BAUD (1500000U)
+#endif
+
+#ifndef W800_UART_FALLBACK_BAUD
+#define W800_UART_FALLBACK_BAUD (115200U)
+#endif
+
+#ifndef W800_AT_UART_INSTANCE
+#define W800_AT_UART_INSTANCE (&g_uart6)
+#endif
+
+#ifndef W800_AT_UART_NAME
+#define W800_AT_UART_NAME "SCI6"
+#endif
+
+#ifndef W800_AT_DEVICE_UART_NAME
+#define W800_AT_DEVICE_UART_NAME "W800 UART1"
+#endif
+
+#ifndef W800_FLASH_UART_INSTANCE
+#define W800_FLASH_UART_INSTANCE (&g_uart5)
+#endif
+
+#ifndef W800_FLASH_UART_NAME
+#define W800_FLASH_UART_NAME "SCI5"
+#endif
+
+#ifndef W800_FLASH_DEVICE_UART_NAME
+#define W800_FLASH_DEVICE_UART_NAME "W800 UART0"
+#endif
+
+#ifndef W800_HOST_UART_NAME
+#define W800_HOST_UART_NAME "SCI7"
+#endif
+
+/* 设置为 1：通过 MCU SCI5(P501/P502) 桥接烧写 W800（软件定时器有溢出缺陷，易中断）
+   设置为 0：使用 USB-UART 适配器直连 W800 UART0 烧写，禁用 MCU 桥接 */
+#ifndef W800_DOWNLOAD_BRIDGE_VIA_MCU
+#define W800_DOWNLOAD_BRIDGE_VIA_MCU (0)
+#endif
+
+#ifndef W800_AT_TIMEOUT_MS
+#define W800_AT_TIMEOUT_MS (1200U)
+#endif
+
+#ifndef CLOUD_RESULT_TIMEOUT_MS
+#define CLOUD_RESULT_TIMEOUT_MS (1500U)
+#endif
+
+#ifndef CLOUD_RESULT_WARN_TIMEOUT_MS
+#define CLOUD_RESULT_WARN_TIMEOUT_MS (1000U)
+#endif
+
+#ifndef CLOUD_POLL_RETRY_MS
+#define CLOUD_POLL_RETRY_MS (2000U)
+#endif
+
+#ifndef CLOUD_SERVER_IP
+#define CLOUD_SERVER_IP "192.168.50.21"
+#endif
+
+#ifndef CLOUD_SERVER_PORT
+#define CLOUD_SERVER_PORT (8080U)
+#endif
+
+#ifndef CLOUD_SERVER_LOCAL_PORT
+#define CLOUD_SERVER_LOCAL_PORT (6000U)
+#endif
+
+#ifndef CLOUD_WIFI_SSID
+#define CLOUD_WIFI_SSID "YOUR_SSID"
+#endif
+
+#ifndef CLOUD_WIFI_PASSWORD
+#define CLOUD_WIFI_PASSWORD "YOUR_PASSWORD"
+#endif
+
+#ifndef W800_SOCKET_ID
+#define W800_SOCKET_ID (0U)
+#endif
+
+#ifndef W800_BOOT_PIN
+#define W800_BOOT_PIN BSP_IO_PORT_05_PIN_04
+#endif
+
+#ifndef W800_WAKE_PIN
+#define W800_WAKE_PIN BSP_IO_PORT_05_PIN_07
+#endif
+
+#ifndef W800_RESET_PIN
+#define W800_RESET_PIN BSP_IO_PORT_05_PIN_08
+#endif
+
+#ifndef W800_BOOT_RUN_LEVEL
+#define W800_BOOT_RUN_LEVEL BSP_IO_LEVEL_HIGH
+#endif
+
+#ifndef W800_BOOT_FLASH_LEVEL
+#define W800_BOOT_FLASH_LEVEL BSP_IO_LEVEL_LOW
+#endif
+
+#ifndef W800_WAKE_ACTIVE_LEVEL
+#define W800_WAKE_ACTIVE_LEVEL BSP_IO_LEVEL_HIGH
+#endif
+
+#ifndef W800_RESET_ACTIVE_LEVEL
+#define W800_RESET_ACTIVE_LEVEL BSP_IO_LEVEL_LOW
+#endif
+
+#ifndef W800_LINE_BUFFER_SIZE
+#define W800_LINE_BUFFER_SIZE (256U)
+#endif
+
+#ifndef W800_RX_RING_SIZE
+#define W800_RX_RING_SIZE (4096U)
+#endif
+
+#endif

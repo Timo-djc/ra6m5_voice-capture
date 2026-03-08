@@ -1,0 +1,31 @@
+*** Using Compiler 'V6.24', folder: 'D:\keil_v5\keil\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+Note: source file 'D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2/tensorflow/lite/kernels/kernel_util.cpp' - object file renamed from '.\Objects\kernel_util.o' to '.\Objects\kernel_util_1.o'.compiling drv_spi0_manual.c...
+src/drivers/drv_lcd.c(30): warning: unused variable 'gFlagWaitTX' [-Wunused-variable]
+   30 | static volatile bool gFlagWaitTX = 0;
+      |                      ^~~~~~~~~~~
+1 warning generated.
+compiling drv_lcd.c...
+src/drivers/drv_touch.c(119): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  119 |         point->x = ((uint16_t)(buf[1] & 0x0F) << 8) | buf[2];
+      |                  ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+src/drivers/drv_touch.c(120): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  120 |         point->y = ((uint16_t)(buf[3] & 0x0F) << 8) | buf[4];
+      |                  ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+2 warnings generated.
+compiling drv_touch.c...
+src/ui/lcd_draw.c(6): warning: In file included from...src/ui\font.h(7): warning: excess elements in scalar initializer [-Wexcess-initializers]
+src/ui\font.h(7): warning: excess elements in scalar initializer [-Wexcess-initializers]
+src/ui\font.h(7): warning: excess elements in scalar initializer [-Wexcess-initializers]
+src/ui\font.h(7): warning: excess elements in scalar initializer [-Wexcess-initializers]
+src/ui\font.h(7): warning: excess elements in scalar initializer [-Wexcess-initializers]
+src/ui\font.h(7): warning: excess elements in scalar initializer [-Wexcess-initializers]
+src/ui\font.h(7): warning: excess elements in scalar initializer [-Wexcess-initializers]
+src/ui\font.h(7): warning: excess elements in scalar initializer [-Wexcess-initializers]
+src/ui\font.h(7): warning: excess elements in array initializer [-Wexcess-initializers]
+9 warnings generated.
+compiling lcd_draw.c...
+linking...
+Program Size: Code=69738 RO-data=435886 RW-data=412 ZI-data=686520  
+".\Objects\A_i2s_capture.axf" - 0 Error(s), 12 Warning(s).
+Build Time Elapsed:  00:00:02

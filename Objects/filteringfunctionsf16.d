@@ -1,0 +1,21 @@
+./objects/filteringfunctionsf16.o: \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Source\FilteringFunctions\FilteringFunctionsF16.c \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Source\FilteringFunctions\arm_fir_f16.c \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\PrivateInclude\arm_compiler_specific.h \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Include\dsp\filtering_functions_f16.h \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Include\arm_math_types_f16.h \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Include\arm_math_types.h \
+  ra\arm\CMSIS_6\CMSIS\Core\Include\cmsis_compiler.h \
+  ra\arm\CMSIS_6\CMSIS\Core\Include\cmsis_armclang.h \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Include\arm_math_memory.h \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Include\dsp\none.h \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Include\dsp\utils.h \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Source\FilteringFunctions\arm_fir_init_f16.c \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Source\FilteringFunctions\arm_biquad_cascade_df1_f16.c \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Source\FilteringFunctions\arm_biquad_cascade_df1_init_f16.c \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Source\FilteringFunctions\arm_biquad_cascade_df2T_f16.c \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Source\FilteringFunctions\arm_biquad_cascade_df2T_init_f16.c \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Source\FilteringFunctions\arm_biquad_cascade_stereo_df2T_f16.c \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Source\FilteringFunctions\arm_biquad_cascade_stereo_df2T_init_f16.c \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Source\FilteringFunctions\arm_correlate_f16.c \
+  D:\keil_v5\keil\ARM\CMSIS-DSP\1.17.0\Source\FilteringFunctions\arm_levinson_durbin_f16.c

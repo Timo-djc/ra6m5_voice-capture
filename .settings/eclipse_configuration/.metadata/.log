@@ -1,0 +1,64 @@
+!SESSION 2026-02-09 20:58:04.216 -----------------------------------------------
+eclipse.buildId=v25.12.0
+java.version=21.0.7
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  --project D:\keil_v5\keil\PROJECT\A_i2s_capture --configuration D:\keil_v5\keil\PROJECT\A_i2s_capture\configuration.xml --generate
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -data D:\keil_v5\keil\PROJECT\A_i2s_capture\.settings\eclipse_configuration --project D:\keil_v5\keil\PROJECT\A_i2s_capture --configuration D:\keil_v5\keil\PROJECT\A_i2s_capture\configuration.xml --generate
+
+!ENTRY com.renesas.cdt.ddsc.standalone 4 0 2026-02-09 20:58:05.391
+!MESSAGE Unrecognized option: --project
+!STACK 0
+com.renesas.cdt.ddsc.standalone.internal.options.StandaloneOptionException: Unrecognized option: --project
+	at com.renesas.cdt.ddsc.standalone.internal.options.StandaloneCommandLineOptions.<init>(StandaloneCommandLineOptions.java:546)
+	at com.renesas.cdt.ddsc.standalone.internal.options.StandaloneCommandLineOptions.parseCommandLine(StandaloneCommandLineOptions.java:264)
+	at com.renesas.cdt.ddsc.standalone.internal.StandaloneApplication.parseOptions(StandaloneApplication.java:370)
+	at com.renesas.cdt.ddsc.standalone.internal.StandaloneApplication.start(StandaloneApplication.java:288)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:219)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:149)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:115)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:467)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:298)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:646)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:594)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1450)
+Caused by: org.apache.commons.cli.UnrecognizedOptionException: Unrecognized option: --project
+	at org.apache.commons.cli.Parser.processOption(Parser.java:244)
+	at org.apache.commons.cli.Parser.parse(Parser.java:176)
+	at org.apache.commons.cli.Parser.parse(Parser.java:94)
+	at com.renesas.cdt.ddsc.standalone.internal.options.StandaloneCommandLineOptions.<init>(StandaloneCommandLineOptions.java:272)
+	... 13 more
+!SESSION 2026-02-09 20:58:25.297 -----------------------------------------------
+eclipse.buildId=v25.12.0
+java.version=21.0.7
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  --project D:\keil_v5\keil\PROJECT\A_i2s_capture --configuration D:\keil_v5\keil\PROJECT\A_i2s_capture\configuration.xml --generate
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -data D:\keil_v5\keil\PROJECT\A_i2s_capture\.settings\eclipse_configuration --project D:\keil_v5\keil\PROJECT\A_i2s_capture --configuration D:\keil_v5\keil\PROJECT\A_i2s_capture\configuration.xml --generate
+
+!ENTRY com.renesas.cdt.ddsc.standalone 4 0 2026-02-09 20:58:26.822
+!MESSAGE Unrecognized option: --project
+!STACK 0
+com.renesas.cdt.ddsc.standalone.internal.options.StandaloneOptionException: Unrecognized option: --project
+	at com.renesas.cdt.ddsc.standalone.internal.options.StandaloneCommandLineOptions.<init>(StandaloneCommandLineOptions.java:546)
+	at com.renesas.cdt.ddsc.standalone.internal.options.StandaloneCommandLineOptions.parseCommandLine(StandaloneCommandLineOptions.java:264)
+	at com.renesas.cdt.ddsc.standalone.internal.StandaloneApplication.parseOptions(StandaloneApplication.java:370)
+	at com.renesas.cdt.ddsc.standalone.internal.StandaloneApplication.start(StandaloneApplication.java:288)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:219)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:149)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:115)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:467)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:298)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:646)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:594)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1450)
+Caused by: org.apache.commons.cli.UnrecognizedOptionException: Unrecognized option: --project
+	at org.apache.commons.cli.Parser.processOption(Parser.java:244)
+	at org.apache.commons.cli.Parser.parse(Parser.java:176)
+	at org.apache.commons.cli.Parser.parse(Parser.java:94)
+	at com.renesas.cdt.ddsc.standalone.internal.options.StandaloneCommandLineOptions.<init>(StandaloneCommandLineOptions.java:272)
+	... 13 more

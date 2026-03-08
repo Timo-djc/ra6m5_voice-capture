@@ -1,0 +1,17 @@
+*** Using Compiler 'V6.24', folder: 'D:\keil_v5\keil\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+Note: source file 'D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2/tensorflow/lite/kernels/kernel_util.cpp' - object file renamed from '.\Objects\kernel_util.o' to '.\Objects\kernel_util_1.o'.src/audio_features.c(3): warning: In file included from...D:/keil_v5/keil/ARM/CMSIS-DSP/1.17.0/Include\arm_math.h(35): warning: In file included from...D:/keil_v5/keil/ARM/CMSIS-DSP/1.17.0/Include\dsp/utils.h(179): warning: implicit conversion changes signedness: 'unsigned int' to 'int32_t' (aka 'int') [-Wsign-conversion]
+  179 |     n1 = __CLZ((uint32_t)hi) - 32;
+      |        ~ ~~~~~~~~~~~~~~~~~~~~^~~~
+D:/keil_v5/keil/ARM/CMSIS-DSP/1.17.0/Include\dsp/utils.h(185): warning: implicit conversion changes signedness: 'unsigned int' to 'int32_t' (aka 'int') [-Wsign-conversion]
+  185 |         n1 = __CLZ((uint32_t)lo);
+      |            ~ ^~~~~~~~~~~~~~~~~~~
+./ra/arm/CMSIS_6/CMSIS/Core/Include\cmsis_armclang.h(249): note: expanded from macro '__CLZ'
+  249 | #define __CLZ(value)    __clz(value)
+      |                         ^~~~~~~~~~~~
+2 warnings generated.
+compiling audio_features.c...
+linking...
+Program Size: Code=83620 RO-data=547616 RW-data=436 ZI-data=445132  
+".\Objects\A_i2s_capture.axf" - 0 Error(s), 2 Warning(s).
+Build Time Elapsed:  00:00:02

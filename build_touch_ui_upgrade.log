@@ -1,0 +1,32 @@
+*** Using Compiler 'V6.24', folder: 'D:\keil_v5\keil\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+Note: source file 'D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2/tensorflow/lite/kernels/kernel_util.cpp' - object file renamed from '.\Objects\kernel_util.o' to '.\Objects\kernel_util_1.o'.compiling ui_state_machine.c...
+compiling hal_entry.c...
+compiling drv_touch.c...
+src/audio_capture.c(733): warning: unused variable 'payload_idx' [-Wunused-variable]
+  733 |     uint32_t payload_idx = 4;
+      |              ^~~~~~~~~~~
+src/audio_capture.c(59): warning: unused variable 's_dc_estimate' [-Wunused-variable]
+   59 | static float s_dc_estimate = 0.0f;
+      |              ^~~~~~~~~~~~~
+src/audio_capture.c(115): warning: unused function 'adpcm_encode_sample' [-Wunused-function]
+  115 | static uint8_t adpcm_encode_sample(int16_t sample, adpcm_state_t *state)
+      |                ^~~~~~~~~~~~~~~~~~~
+src/audio_capture.c(171): warning: unused function 'cobs_encode' [-Wunused-function]
+  171 | static uint32_t cobs_encode(const uint8_t *src, uint32_t length, uint8_t *dst)
+      |                 ^~~~~~~~~~~
+src/audio_capture.c(451): warning: unused function 'process_key_trigger_event' [-Wunused-function]
+  451 | static void process_key_trigger_event(void)
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~
+src/audio_capture.c(494): warning: unused function 'process_key_release_poll' [-Wunused-function]
+  494 | static void process_key_release_poll(void)
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~
+src/audio_capture.c(542): warning: unused function 'process_key_press_poll' [-Wunused-function]
+  542 | static void process_key_press_poll(void)
+      |             ^~~~~~~~~~~~~~~~~~~~~~
+7 warnings generated.
+compiling audio_capture.c...
+linking...
+Program Size: Code=83560 RO-data=547832 RW-data=424 ZI-data=445164  
+".\Objects\A_i2s_capture.axf" - 0 Error(s), 7 Warning(s).
+Build Time Elapsed:  00:00:08

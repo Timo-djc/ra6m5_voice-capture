@@ -1,0 +1,14 @@
+*** Using Compiler 'V6.24', folder: 'D:\keil_v5\keil\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+Note: source file 'D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2/tensorflow/lite/kernels/kernel_util.cpp' - object file renamed from '.\Objects\kernel_util.o' to '.\Objects\kernel_util_1.o'.src/drivers/drv_lcd.c(98): warning: unused function 'LCDDrvWriteBuf' [-Wunused-function]
+   98 | static void LCDDrvWriteBuf(uint8_t* buf, uint32_t size)
+      |             ^~~~~~~~~~~~~~
+src/drivers/drv_lcd.c(30): warning: unused variable 'gFlagWaitTX' [-Wunused-variable]
+   30 | static volatile bool gFlagWaitTX = 0;
+      |                      ^~~~~~~~~~~
+2 warnings generated.
+compiling drv_lcd.c...
+linking...
+Program Size: Code=70234 RO-data=436066 RW-data=412 ZI-data=379320  
+".\Objects\A_i2s_capture.axf" - 0 Error(s), 2 Warning(s).
+Build Time Elapsed:  00:00:03

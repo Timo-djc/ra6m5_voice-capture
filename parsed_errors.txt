@@ -1,0 +1,5 @@
+.\Objects\A_i2s_capture.axf: Error: L6218E: Undefined symbol tflite::ErrorReporter::Report(char const*, ...) (referred from flatbuffer_conversions.o).
+.\Objects\A_i2s_capture.axf: Error: L6218E: Undefined symbol tflite::GetBuiltinCode(tflite::OperatorCode const*) (referred from micro_interpreter.o).
+.\Objects\A_i2s_capture.axf: Error: L6218E: Undefined symbol tflite::MockMicroGraph::MockMicroGraph(tflite::SingleArenaBufferAllocator*) (referred from kernel_runner.o).
+.\Objects\A_i2s_capture.axf: Error: L6218E: Undefined symbol tflite::MultiplyByQuantizedMultiplier(int, int, int) (referred from portable_tensor_utils_1.o).
+.\Objects\A_i2s_capture.axf: Error: L6218E: Undefined symbol tflite::MultiplyByQuantizedMultiplier(long long, int, int) (referred from portable_tensor_utils_1.o).

@@ -1,0 +1,15 @@
+*** Using Compiler 'V6.24', folder: 'D:\keil_v5\keil\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+Note: source file 'D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2/tensorflow/lite/kernels/kernel_util.cpp' - object file renamed from '.\Objects\kernel_util.o' to '.\Objects\kernel_util_1.o'.compiling hal_entry.c...
+src/drivers/drv_touch.c(136): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  136 |         uint16_t raw_x = ((uint16_t)(buf[1] & 0x0F) << 8) | buf[2];
+      |                  ~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+src/drivers/drv_touch.c(137): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  137 |         uint16_t raw_y = ((uint16_t)(buf[3] & 0x0F) << 8) | buf[4];
+      |                  ~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+2 warnings generated.
+compiling drv_touch.c...
+linking...
+Program Size: Code=82036 RO-data=547432 RW-data=412 ZI-data=445044  
+".\Objects\A_i2s_capture.axf" - 0 Error(s), 2 Warning(s).
+Build Time Elapsed:  00:00:03

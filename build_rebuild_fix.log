@@ -1,0 +1,18 @@
+*** Using Compiler 'V6.24', folder: 'D:\keil_v5\keil\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+Note: source file 'D:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2/tensorflow/lite/kernels/kernel_util.cpp' - object file renamed from '.\Objects\kernel_util.o' to '.\Objects\kernel_util_1.o'.src/drivers/drv_spi0_manual.c(3): error: 'bsp_module_stop.h' file not found
+    3 | #include "bsp_module_stop.h"
+      |          ^~~~~~~~~~~~~~~~~~~
+1 error generated.
+compiling drv_spi0_manual.c...
+src/drivers/drv_touch.c(121): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  121 |         point->x = ((uint16_t)(buf[1] & 0x0F) << 8) | buf[2];
+      |                  ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+src/drivers/drv_touch.c(122): warning: implicit conversion loses integer precision: 'int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+  122 |         point->y = ((uint16_t)(buf[3] & 0x0F) << 8) | buf[4];
+      |                  ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+2 warnings generated.
+compiling drv_touch.c...
+".\Objects\A_i2s_capture.axf" - 1 Error(s), 2 Warning(s).
+Target not created.
+Build Time Elapsed:  00:00:02
