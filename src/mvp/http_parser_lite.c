@@ -28,6 +28,26 @@ static const uint8_t * find_seq(const uint8_t * data, size_t len, const char * s
     return NULL;
 }
 
+static const uint8_t * find_http_start(const uint8_t * data, size_t len)
+{
+    size_t i;
+
+    if ((NULL == data) || (len < 5U))
+    {
+        return NULL;
+    }
+
+    for (i = 0U; i + 5U <= len; i++)
+    {
+        if (0 == memcmp(data + i, "HTTP/", 5U))
+        {
+            return data + i;
+        }
+    }
+
+    return NULL;
+}
+
 static int ascii_case_eq(char a, char b)
 {
     return (tolower((unsigned char) a) == tolower((unsigned char) b));
@@ -76,11 +96,13 @@ static const char * find_header_ci(const char * headers, const char * key)
 
 int http_lite_parse(const uint8_t * data, size_t size, http_lite_response_t * out)
 {
+    const uint8_t * start;
     const uint8_t * h_end;
     char header_copy[1024];
     const char * cl;
     int status = 0;
     size_t header_len;
+    size_t available;
 
     if ((NULL == data) || (0U == size) || (NULL == out))
     {
@@ -91,13 +113,29 @@ int http_lite_parse(const uint8_t * data, size_t size, http_lite_response_t * ou
     out->status_code = -1;
     out->content_length = -1;
 
-    h_end = find_seq(data, size, "\r\n\r\n");
-    if (NULL == h_end)
+    start = find_http_start(data, size);
+    if (NULL == start)
     {
         return MVP_ERR_HTTP;
     }
 
-    header_len = (size_t) (h_end - data) + 4U;
+    available = size - (size_t) (start - data);
+
+    h_end = find_seq(start, available, "\r\n\r\n");
+    if (NULL == h_end)
+    {
+        h_end = find_seq(start, available, "\n\n");
+        if (NULL == h_end)
+        {
+            return MVP_ERR_HTTP;
+        }
+        header_len = (size_t) (h_end - start) + 2U;
+    }
+    else
+    {
+        header_len = (size_t) (h_end - start) + 4U;
+    }
+
     out->header_len = header_len;
 
     if ((header_len + 1U) >= sizeof(header_copy))
@@ -105,7 +143,7 @@ int http_lite_parse(const uint8_t * data, size_t size, http_lite_response_t * ou
         return MVP_ERR_OVERFLOW;
     }
 
-    memcpy(header_copy, data, header_len);
+    memcpy(header_copy, start, header_len);
     header_copy[header_len] = '\0';
 
     if (1 != sscanf(header_copy, "HTTP/%*u.%*u %d", &status))
@@ -120,8 +158,8 @@ int http_lite_parse(const uint8_t * data, size_t size, http_lite_response_t * ou
         out->content_length = atoi(cl + strlen("Content-Length:"));
     }
 
-    out->body = data + header_len;
-    out->body_len = size - header_len;
+    out->body = start + header_len;
+    out->body_len = available - header_len;
 
     if (out->content_length >= 0)
     {
@@ -170,6 +208,43 @@ static int parse_json_int(const char * json, const char * key, int * out_value)
     return MVP_OK;
 }
 
+/* MicroLib strtod returns 0.  Manual decimal parser. */
+static float mvp_strtof_local(const char * s)
+{
+    int sign = 1;
+    int64_t integer_part = 0;
+    int64_t frac_part = 0;
+    int64_t frac_div = 1;
+    int has_digit = 0;
+
+    if (NULL == s) { return 0.0f; }
+    while ((*s == ' ') || (*s == '\t')) { s++; }
+    if (*s == '-') { sign = -1; s++; }
+    else if (*s == '+') { s++; }
+
+    while ((*s >= '0') && (*s <= '9'))
+    {
+        has_digit = 1;
+        integer_part = integer_part * 10 + (*s - '0');
+        s++;
+    }
+
+    if (*s == '.')
+    {
+        s++;
+        while ((*s >= '0') && (*s <= '9'))
+        {
+            has_digit = 1;
+            frac_part = frac_part * 10 + (*s - '0');
+            frac_div *= 10;
+            s++;
+        }
+    }
+
+    if (!has_digit) { return 0.0f; }
+    return (float) sign * ((float) integer_part + (float) frac_part / (float) frac_div);
+}
+
 static int parse_json_float(const char * json, const char * key, float * out_value)
 {
     const char * p = find_json_key(json, key);
@@ -190,7 +265,7 @@ static int parse_json_float(const char * json, const char * key, float * out_val
         p++;
     }
 
-    *out_value = (float) strtod(p, NULL);
+    *out_value = mvp_strtof_local(p);
     return MVP_OK;
 }
 

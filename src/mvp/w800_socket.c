@@ -99,6 +99,73 @@ static int read_until_ok_line(char * out_line, size_t out_size, uint32_t timeout
     return MVP_ERR_TIMEOUT;
 }
 
+static uint32_t choose_sksnd_request_size(size_t remaining)
+{
+    size_t request_size = remaining;
+    size_t min_tail = W800_SKSND_MIN_TAIL;
+    size_t tail;
+
+    if (request_size > W800_SKSND_MAX_CHUNK)
+    {
+        request_size = W800_SKSND_MAX_CHUNK;
+    }
+
+    if (min_tail > W800_SKSND_MAX_CHUNK)
+    {
+        min_tail = W800_SKSND_MAX_CHUNK;
+    }
+
+    if (0U == min_tail)
+    {
+        min_tail = 1U;
+    }
+
+    tail = remaining - request_size;
+    if ((tail > 0U) && (tail < min_tail))
+    {
+        size_t adjusted = remaining - min_tail;
+        if (adjusted > W800_SKSND_MAX_CHUNK)
+        {
+            adjusted = W800_SKSND_MAX_CHUNK;
+        }
+
+        if ((adjusted > 0U) && (adjusted < remaining))
+        {
+            request_size = adjusted;
+        }
+    }
+
+    return (uint32_t) request_size;
+}
+
+static int parse_sksnd_ok_value(const char * line, uint32_t request_size, uint32_t * out_value)
+{
+    int rc;
+
+    if ((NULL == line) || (NULL == out_value))
+    {
+        return MVP_ERR_ARG;
+    }
+
+    rc = parse_ok_value(line, out_value);
+    if (MVP_OK == rc)
+    {
+        return MVP_OK;
+    }
+
+    /* Some W800 firmware builds occasionally reply SKSND with plain "+OK"
+     * (no "=<actualsize>").  Fall back to the requested size so the send
+     * stream can continue. */
+    if (0 == strncmp(line, "+OK", 3))
+    {
+        *out_value = request_size;
+        LOGW("SKSND reply without size, assume request=%lu", (unsigned long) request_size);
+        return MVP_OK;
+    }
+
+    return rc;
+}
+
 int w800_socket_open_tcp(const char * host, uint16_t remote_port, uint16_t local_port, int * out_socket)
 {
     char cmd[192];
@@ -194,7 +261,8 @@ int w800_socket_open_tcp(const char * host, uint16_t remote_port, uint16_t local
     /* W800 SKCT may return +OK before TCP handshake completes.
      * Poll SKSTT until the socket reaches CONNECTED state. */
     {
-        uint32_t conn_deadline = w800_now_ms() + 5000U;
+        uint32_t conn_start = w800_now_ms();
+        uint32_t conn_deadline = conn_start + 5000U;
         while ((int32_t)(w800_now_ms() - conn_deadline) < 0)
         {
             w800_socket_status_t cst;
@@ -208,7 +276,7 @@ int w800_socket_open_tcp(const char * host, uint16_t remote_port, uint16_t local
             if (cst.status == W800_SOCKET_STATUS_CONNECTED)
             {
                 LOGI("TCP connected (took ~%lu ms)",
-                     (unsigned long)(w800_now_ms() - (conn_deadline - 5000U)));
+                     (unsigned long)(w800_now_ms() - conn_start));
                 break;
             }
             if (cst.status == W800_SOCKET_STATUS_DISCONNECTED)
@@ -234,7 +302,7 @@ int w800_socket_send(int socket, const uint8_t * data, size_t size)
     uint32_t actual_size;
     uint32_t deadline;
     size_t sent = 0U;
-    bool partial_window_logged = false;
+    size_t next_health_check = W800_SKSND_HEALTH_CHECK_INTERVAL_BYTES;
     int rc;
 
     if ((socket < 0) || (NULL == data) || (0U == size))
@@ -247,11 +315,11 @@ int w800_socket_send(int socket, const uint8_t * data, size_t size)
     while (sent < size)
     {
         size_t remaining = size - sent;
-        uint32_t request_size = (remaining > (size_t) W800_SKSND_MAX_CHUNK)
-                                ? W800_SKSND_MAX_CHUNK
-                                : (uint32_t) remaining;
+        uint32_t request_size = choose_sksnd_request_size(remaining);
         uint32_t backoff_ms = W800_SKSND_BACKOFF_MS;
         uint32_t retry_count = 0U;
+
+        w800_uart_drain_rx();
 
         for (;;)
         {
@@ -273,7 +341,6 @@ int w800_socket_send(int socket, const uint8_t * data, size_t size)
                 break;
             }
 
-            /* SKSND returned an error. */
             retry_count++;
             LOGW("SKSND ERR: %s (sent=%lu/%lu retry=%lu backoff=%lums)",
                  line,
@@ -282,16 +349,35 @@ int w800_socket_send(int socket, const uint8_t * data, size_t size)
                  (unsigned long) retry_count,
                  (unsigned long) backoff_ms);
 
-            /* Check if TCP connection is still alive. */
+            /* On first ERR=-4, query SKSTT to diagnose socket state.
+             * Whether SKSTT succeeds or fails, log the result and bail
+             * out immediately – a dead socket won't recover. */
+            if ((1U == retry_count) && (NULL != strstr(line, "-4")))
             {
-                w800_socket_status_t sst;
-                if (MVP_OK == w800_socket_get_status(socket, &sst))
+                w800_socket_status_t diag;
+                int skstt_rc;
+
+                LOGW("SKSND got -4, querying SKSTT socket=%d ...", socket);
+                w800_uart_drain_rx();
+                skstt_rc = w800_socket_get_status(socket, &diag);
+
+                if (MVP_OK == skstt_rc)
                 {
-                    if (sst.status != W800_SOCKET_STATUS_CONNECTED)
+                    LOGW("SKSTT: rc=OK socket=%d status=%d rx=%lu",
+                         diag.socket_id, diag.status,
+                         (unsigned long) diag.rx_data_len);
+
+                    if (diag.status != W800_SOCKET_STATUS_CONNECTED)
                     {
-                        LOGE("SKSND: socket disconnected (status=%d), aborting", sst.status);
+                        LOGE("TCP dead (status=%d), no point retrying",
+                             diag.status);
                         return MVP_ERR_SOCKET;
                     }
+                }
+                else
+                {
+                    LOGW("SKSTT: rc=%d (query failed), socket gone", skstt_rc);
+                    return MVP_ERR_SOCKET;
                 }
             }
 
@@ -311,18 +397,20 @@ int w800_socket_send(int socket, const uint8_t * data, size_t size)
                 return MVP_ERR_TIMEOUT;
             }
 
-            /* Exponential backoff: drain stale data then wait. */
             w800_uart_drain_rx();
             R_BSP_SoftwareDelay(backoff_ms, BSP_DELAY_UNITS_MILLISECONDS);
-            if (backoff_ms < 1000U)
+            if (backoff_ms < 1600U)
             {
                 backoff_ms *= 2U;
             }
         }
 
-        rc = parse_ok_value(line, &actual_size);
+        rc = parse_sksnd_ok_value(line, request_size, &actual_size);
         if (MVP_OK != rc)
         {
+            LOGE("SKSND parse failed rc=%d line='%s' req=%lu sent=%lu/%lu",
+                 rc, line, (unsigned long) request_size,
+                 (unsigned long) sent, (unsigned long) size);
             return rc;
         }
 
@@ -331,8 +419,7 @@ int w800_socket_send(int socket, const uint8_t * data, size_t size)
             if ((int32_t) (w800_now_ms() - deadline) >= 0)
             {
                 LOGE("SKSND window stays 0, sent=%lu total=%lu",
-                     (unsigned long) sent,
-                     (unsigned long) size);
+                     (unsigned long) sent, (unsigned long) size);
                 return MVP_ERR_TIMEOUT;
             }
 
@@ -340,39 +427,316 @@ int w800_socket_send(int socket, const uint8_t * data, size_t size)
             continue;
         }
 
-        if (actual_size > request_size)
+        if (actual_size > (uint32_t) remaining)
         {
-            LOGE("SKSND actual_size=%lu > request=%lu",
-                 (unsigned long) actual_size,
-                 (unsigned long) request_size);
-            return MVP_ERR_SIZE_MISMATCH;
+            actual_size = (uint32_t) remaining;
         }
 
-        if ((actual_size < request_size) && !partial_window_logged)
+        /* Stream actual_size raw bytes.  Chunk the UART writes to keep
+         * individual DMA transfers manageable. */
         {
-            LOGW("SKSND partial window: request=%lu actual=%lu",
-                 (unsigned long) request_size,
-                 (unsigned long) actual_size);
-            partial_window_logged = true;
-        }
+            size_t tx_off = 0U;
 
-        rc = w800_write_raw(data + sent, actual_size, HTTP_SEND_TIMEOUT_MS);
-        if (MVP_OK != rc)
-        {
-            return rc;
+            while (tx_off < actual_size)
+            {
+                size_t chunk = (size_t) actual_size - tx_off;
+
+                if (chunk > W800_SKSND_MAX_CHUNK)
+                {
+                    chunk = W800_SKSND_MAX_CHUNK;
+                }
+
+                rc = w800_write_raw(data + sent + tx_off, chunk, HTTP_SEND_TIMEOUT_MS);
+                if (MVP_OK != rc)
+                {
+                    return rc;
+                }
+
+                tx_off += chunk;
+            }
         }
 
         sent += actual_size;
 
-        /* W800 TCP buffer is ~512 B; wait for TCP ACK to free it.
-         * Scale delay: ~200 ms for a full 512-byte chunk on WiFi. */
         if (sent < size)
         {
-            uint32_t flush_ms = (actual_size >= 256U) ? 200U : 80U;
-            R_BSP_SoftwareDelay(flush_ms, BSP_DELAY_UNITS_MILLISECONDS);
+            if (W800_SKSND_INTER_CHUNK_DELAY_MS > 0U)
+            {
+                R_BSP_SoftwareDelay(W800_SKSND_INTER_CHUNK_DELAY_MS,
+                                    BSP_DELAY_UNITS_MILLISECONDS);
+            }
+
+            if ((W800_SKSND_HEALTH_CHECK_INTERVAL_BYTES > 0U) &&
+                (sent >= next_health_check))
+            {
+                w800_socket_status_t hc;
+                int hc_rc = w800_socket_get_status(socket, &hc);
+                if (MVP_OK == hc_rc)
+                {
+                    LOGI("mid-SKSND SKSTT: status=%d rx=%lu (sent=%lu/%lu)",
+                         hc.status, (unsigned long) hc.rx_data_len,
+                         (unsigned long) sent, (unsigned long) size);
+
+                    if (hc.status != W800_SOCKET_STATUS_CONNECTED)
+                    {
+                        LOGE("TCP dropped during send (status=%d)", hc.status);
+                        return MVP_ERR_SOCKET;
+                    }
+                }
+                else
+                {
+                    LOGW("mid-SKSND SKSTT failed rc=%d (sent=%lu/%lu)",
+                         hc_rc, (unsigned long) sent, (unsigned long) size);
+                    return MVP_ERR_SOCKET;
+                }
+
+                next_health_check += W800_SKSND_HEALTH_CHECK_INTERVAL_BYTES;
+            }
         }
     }
 
+    LOGI("SKSND stream done: sent=%lu/%lu", (unsigned long) sent, (unsigned long) size);
+    return MVP_OK;
+}
+
+/* ---------------------------------------------------------------------------
+ * w800_socket_send_two – scatter-send TWO buffers as one logical byte stream.
+ *
+ * This avoids the "header SKSND done → gap → body SKSND" pattern that the
+ * W800 rejects with ERR=-4.  Instead, a single SKSND transaction declares
+ * the combined length and the raw byte stream spans both buffers seamlessly.
+ * ----------------------------------------------------------------------- */
+int w800_socket_send_two(int socket,
+                         const uint8_t * data1, size_t len1,
+                         const uint8_t * data2, size_t len2)
+{
+    char cmd[80];
+    char line[W800_LINE_BUF_SIZE];
+    uint32_t actual_size;
+    uint32_t deadline;
+    size_t total = len1 + len2;
+    size_t sent = 0U;
+    size_t next_health_check = W800_SKSND_HEALTH_CHECK_INTERVAL_BYTES;
+    int rc;
+
+    if (socket < 0)
+    {
+        return MVP_ERR_ARG;
+    }
+
+    if ((len1 > 0U) && (NULL == data1))
+    {
+        return MVP_ERR_ARG;
+    }
+
+    if ((len2 > 0U) && (NULL == data2))
+    {
+        return MVP_ERR_ARG;
+    }
+
+    if (0U == total)
+    {
+        return MVP_ERR_ARG;
+    }
+
+    deadline = w800_now_ms() + HTTP_SEND_TIMEOUT_MS;
+
+    while (sent < total)
+    {
+        size_t remaining = total - sent;
+        uint32_t request_size = choose_sksnd_request_size(remaining);
+        uint32_t backoff_ms = W800_SKSND_BACKOFF_MS;
+        uint32_t retry_count = 0U;
+
+        w800_uart_drain_rx();
+
+        for (;;)
+        {
+            (void) snprintf(cmd,
+                            sizeof(cmd),
+                            "AT+SKSND=%d,%lu\r\n",
+                            socket,
+                            (unsigned long) request_size);
+
+            rc = w800_write_raw((const uint8_t *) cmd, strlen(cmd), W800_CMD_TIMEOUT_MS);
+            if (MVP_OK != rc)
+            {
+                return rc;
+            }
+
+            rc = read_until_ok_line(line, sizeof(line), W800_CMD_TIMEOUT_MS);
+            if (MVP_OK == rc)
+            {
+                break;
+            }
+
+            retry_count++;
+            LOGW("SKSND ERR: %s (sent=%lu/%lu retry=%lu backoff=%lums)",
+                 line,
+                 (unsigned long) sent,
+                 (unsigned long) total,
+                 (unsigned long) retry_count,
+                 (unsigned long) backoff_ms);
+
+            /* On first ERR=-4, diagnose via SKSTT and bail out fast. */
+            if ((1U == retry_count) && (NULL != strstr(line, "-4")))
+            {
+                w800_socket_status_t diag;
+                int skstt_rc;
+
+                LOGW("SKSND got -4, querying SKSTT socket=%d ...", socket);
+                w800_uart_drain_rx();
+                skstt_rc = w800_socket_get_status(socket, &diag);
+
+                if (MVP_OK == skstt_rc)
+                {
+                    LOGW("SKSTT: rc=OK socket=%d status=%d rx=%lu",
+                         diag.socket_id, diag.status,
+                         (unsigned long) diag.rx_data_len);
+
+                    if (diag.status != W800_SOCKET_STATUS_CONNECTED)
+                    {
+                        LOGE("TCP dead (status=%d), no point retrying",
+                             diag.status);
+                        return MVP_ERR_SOCKET;
+                    }
+                }
+                else
+                {
+                    LOGW("SKSTT: rc=%d (query failed), socket gone", skstt_rc);
+                    return MVP_ERR_SOCKET;
+                }
+            }
+
+            if (retry_count >= W800_SKSND_MAX_RETRY)
+            {
+                LOGE("SKSND max retries (%u) reached, sent=%lu/%lu",
+                     (unsigned) W800_SKSND_MAX_RETRY,
+                     (unsigned long) sent,
+                     (unsigned long) total);
+                return MVP_ERR_AT;
+            }
+
+            if ((int32_t) (w800_now_ms() - deadline) >= 0)
+            {
+                LOGE("SKSND deadline, sent=%lu/%lu",
+                     (unsigned long) sent, (unsigned long) total);
+                return MVP_ERR_TIMEOUT;
+            }
+
+            w800_uart_drain_rx();
+            R_BSP_SoftwareDelay(backoff_ms, BSP_DELAY_UNITS_MILLISECONDS);
+            if (backoff_ms < 1600U)
+            {
+                backoff_ms *= 2U;
+            }
+        }
+
+        rc = parse_sksnd_ok_value(line, request_size, &actual_size);
+        if (MVP_OK != rc)
+        {
+            LOGE("SKSND parse failed rc=%d line='%s' req=%lu sent=%lu/%lu",
+                 rc, line, (unsigned long) request_size,
+                 (unsigned long) sent, (unsigned long) total);
+            return rc;
+        }
+
+        if (0U == actual_size)
+        {
+            if ((int32_t) (w800_now_ms() - deadline) >= 0)
+            {
+                return MVP_ERR_TIMEOUT;
+            }
+
+            R_BSP_SoftwareDelay(50U, BSP_DELAY_UNITS_MILLISECONDS);
+            continue;
+        }
+
+        if (actual_size > (uint32_t) remaining)
+        {
+            actual_size = (uint32_t) remaining;
+        }
+
+        /* Stream actual_size raw bytes across the two-buffer scatter list.
+         * Global offset 'pos' maps into [data1 | data2]. */
+        {
+            size_t to_write = actual_size;
+            size_t pos = sent;
+
+            while (to_write > 0U)
+            {
+                const uint8_t * src;
+                size_t avail;
+                size_t chunk;
+
+                if (pos < len1)
+                {
+                    src   = data1 + pos;
+                    avail = len1 - pos;
+                }
+                else
+                {
+                    src   = data2 + (pos - len1);
+                    avail = len2 - (pos - len1);
+                }
+
+                chunk = (to_write < avail) ? to_write : avail;
+                if (chunk > W800_SKSND_MAX_CHUNK)
+                {
+                    chunk = W800_SKSND_MAX_CHUNK;
+                }
+
+                rc = w800_write_raw(src, chunk, HTTP_SEND_TIMEOUT_MS);
+                if (MVP_OK != rc)
+                {
+                    return rc;
+                }
+
+                pos      += chunk;
+                to_write -= chunk;
+            }
+        }
+
+        sent += actual_size;
+
+        if (sent < total)
+        {
+            if (W800_SKSND_INTER_CHUNK_DELAY_MS > 0U)
+            {
+                R_BSP_SoftwareDelay(W800_SKSND_INTER_CHUNK_DELAY_MS,
+                                    BSP_DELAY_UNITS_MILLISECONDS);
+            }
+
+            if ((W800_SKSND_HEALTH_CHECK_INTERVAL_BYTES > 0U) &&
+                (sent >= next_health_check))
+            {
+                w800_socket_status_t hc;
+                int hc_rc = w800_socket_get_status(socket, &hc);
+                if (MVP_OK == hc_rc)
+                {
+                    LOGI("mid-SKSND SKSTT: status=%d rx=%lu (sent=%lu/%lu)",
+                         hc.status, (unsigned long) hc.rx_data_len,
+                         (unsigned long) sent, (unsigned long) total);
+
+                    if (hc.status != W800_SOCKET_STATUS_CONNECTED)
+                    {
+                        LOGE("TCP dropped during send (status=%d)", hc.status);
+                        return MVP_ERR_SOCKET;
+                    }
+                }
+                else
+                {
+                    LOGW("mid-SKSND SKSTT failed rc=%d (sent=%lu/%lu)",
+                         hc_rc, (unsigned long) sent, (unsigned long) total);
+                    return MVP_ERR_SOCKET;
+                }
+
+                next_health_check += W800_SKSND_HEALTH_CHECK_INTERVAL_BYTES;
+            }
+        }
+    }
+
+    LOGI("SKSND stream done: sent=%lu/%lu", (unsigned long) sent, (unsigned long) total);
     return MVP_OK;
 }
 
@@ -487,7 +851,8 @@ int w800_socket_get_status(int socket, w800_socket_status_t * st)
         switch (field)
         {
             case 0:
-                st->socket_id = (int) strtol(token, NULL, 10);
+                /* First field of SKSTT reply is firmware-specific and is not a stable
+                 * socket-id across versions. Keep queried socket id unchanged. */
                 break;
             case 1:
                 st->status = (int) strtol(token, NULL, 10);

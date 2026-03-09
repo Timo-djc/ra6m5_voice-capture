@@ -24,6 +24,11 @@ static uint32_t s_core_hz = 0U;
 
 static uint32_t mvp_now_ms(void)
 {
+    static uint32_t s_last_cyccnt = 0U;
+    static uint64_t s_total_cycles = 0ULL;
+    uint32_t cur;
+    uint32_t delta;
+
     if (0U == s_core_hz)
     {
         s_core_hz = R_FSP_SystemClockHzGet(FSP_PRIV_CLOCK_ICLK);
@@ -33,7 +38,12 @@ static uint32_t mvp_now_ms(void)
         }
     }
 
-    return (uint32_t) (((uint64_t) DWT->CYCCNT * 1000ULL) / s_core_hz);
+    cur = DWT->CYCCNT;
+    delta = cur - s_last_cyccnt;   /* uint32 subtraction handles single wrap */
+    s_last_cyccnt = cur;
+    s_total_cycles += delta;
+
+    return (uint32_t) ((s_total_cycles * 1000ULL) / s_core_hz);
 }
 
 uint32_t w800_now_ms(void)

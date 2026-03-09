@@ -14,6 +14,8 @@
 #include <string.h>
 
 #define W800_BOOT_PROBE_MAX_RETRY    (3U)
+#define WIFI_IP_WAIT_TIMEOUT_MS       (20000U)
+#define WIFI_IP_REJOIN_MAX_RETRY      (1U)
 
 typedef enum e_app_state
 {
@@ -300,41 +302,65 @@ void app_main_poll(void)
         {
             char st[512];
             char last_st[512];
-            uint32_t wait_deadline = w800_now_ms() + 8000U;
-            int lk_status = -1;
+            uint32_t wait_deadline;
+            int lk_status;
+            int ip_wait_round;
             last_st[0] = '\0';
 
-            while ((int32_t) (w800_now_ms() - wait_deadline) < 0)
+            for (ip_wait_round = 0; ip_wait_round <= (int) WIFI_IP_REJOIN_MAX_RETRY; ip_wait_round++)
             {
-                rc = w800_get_link_status(st, sizeof(st));
-                if (MVP_OK != rc)
+                wait_deadline = w800_now_ms() + WIFI_IP_WAIT_TIMEOUT_MS;
+                lk_status = -1;
+
+                while ((int32_t) (w800_now_ms() - wait_deadline) < 0)
                 {
+                    rc = w800_get_link_status(st, sizeof(st));
+                    if (MVP_OK != rc)
+                    {
+                        R_BSP_SoftwareDelay(200U, BSP_DELAY_UNITS_MILLISECONDS);
+                        continue;
+                    }
+
+                    if (0 != strcmp(last_st, st))
+                    {
+                        LOGI("LKSTT: %s", st);
+                        strncpy(last_st, st, sizeof(last_st) - 1U);
+                        last_st[sizeof(last_st) - 1U] = '\0';
+                    }
+
+                    if (parse_lkstt_status(st, &lk_status) && (lk_status == 1))
+                    {
+                        if (!contains_ipv4(st))
+                        {
+                            LOGW("LKSTT status=1 (linked), IP text not fully present yet.");
+                        }
+
+                        s_state = WIFI_READY;
+                        break;
+                    }
+
                     R_BSP_SoftwareDelay(200U, BSP_DELAY_UNITS_MILLISECONDS);
-                    continue;
                 }
 
-                if (0 != strcmp(last_st, st))
+                if (WIFI_READY == s_state)
                 {
-                    LOGI("LKSTT: %s", st);
-                    strncpy(last_st, st, sizeof(last_st) - 1U);
-                    last_st[sizeof(last_st) - 1U] = '\0';
-                }
-                if (parse_lkstt_status(st, &lk_status) && (lk_status == 1))
-                {
-                    if (!contains_ipv4(st))
-                    {
-                        LOGW("LKSTT status=1 (linked), IP text not fully present yet.");
-                    }
-                    s_state = WIFI_READY;
                     break;
                 }
 
-                R_BSP_SoftwareDelay(200U, BSP_DELAY_UNITS_MILLISECONDS);
+                if (ip_wait_round < (int) WIFI_IP_REJOIN_MAX_RETRY)
+                {
+                    LOGW("No IP yet after %lu ms, retry WJOIN (%d/%u). Last LKSTT: %s",
+                         (unsigned long) WIFI_IP_WAIT_TIMEOUT_MS,
+                         ip_wait_round + 1,
+                         (unsigned int) WIFI_IP_REJOIN_MAX_RETRY,
+                         ('\0' != last_st[0]) ? last_st : "<none>");
+                    (void) w800_join_ap();
+                }
             }
 
             if (WIFI_READY != s_state)
             {
-                enter_error(MVP_ERR_NO_IP);
+                enter_error_step("WIFI_CHECK_IP", MVP_ERR_NO_IP);
             }
 
             break;
@@ -401,7 +427,12 @@ void app_main_poll(void)
             char text[CLOUD_TEXT_MAX_LEN];
             float conf = 0.0f;
             int code = cloud_client_get_last_result(text, sizeof(text), &conf);
-            LOGI("ASR result: code=%d text=%s confidence=%.3f", code, text, (double) conf);
+            /* MicroLib printf does not support %f; use integer millis. */
+            {
+                int conf_pct = (int)(conf * 1000.0f + 0.5f);
+                LOGI("ASR result: code=%d text=%s confidence=%d.%03d",
+                     code, text, conf_pct / 1000, conf_pct % 1000);
+            }
             s_state = DONE;
             break;
         }

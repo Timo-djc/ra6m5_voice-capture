@@ -25,6 +25,9 @@ typedef struct st_w800_socket_status
 int w800_socket_open_tcp(const char * host, uint16_t remote_port, uint16_t local_port, int * out_socket);
 int w800_socket_open(const char * host, uint16_t remote_port, uint16_t local_port, int * out_socket);
 int w800_socket_send(int socket, const uint8_t * data, size_t size);
+int w800_socket_send_two(int socket,
+                         const uint8_t * data1, size_t len1,
+                         const uint8_t * data2, size_t len2);
 int w800_socket_recv(int socket, uint8_t * buf, size_t maxsize, size_t * out_size);
 int w800_socket_get_status(int socket, w800_socket_status_t * st);
 int w800_socket_close(int socket);
