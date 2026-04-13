@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from config import CONFIG
+try:
+    from .config import CONFIG
+except ImportError:  # pragma: no cover
+    from config import CONFIG
 
 
 @dataclass

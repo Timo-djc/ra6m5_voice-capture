@@ -1,12 +1,11 @@
 #include "app_main.h"
 
 #include "config.h"
-#include "cloud_http_client.h"
+#include "cloud_speaker_demo_client.h"
 #include "log.h"
 #include "test_audio_data.h"
 #include "w800_at.h"
 #include "w800_wifi.h"
-
 #include "../audio_capture.h"
 
 #include <ctype.h>
@@ -36,8 +35,10 @@ typedef enum e_app_state
 
 static app_state_t s_state = WIFI_INIT;
 static int s_last_err = MVP_OK;
-static const uint8_t * s_wav_data = NULL;
-static size_t s_wav_size = 0U;
+static const test_audio_clip_t * s_clip = NULL;
+static size_t s_clip_index = 0U;
+static size_t s_clip_count = 0U;
+static char s_last_reply[CLOUD_TEXT_MAX_LEN];
 static const char * s_last_step = "init";
 static uint8_t s_boot_probe_retry = 0U;
 static bool s_boot_wait_done = false;
@@ -135,13 +136,15 @@ void app_main_init(void)
 
     s_state = WIFI_INIT;
     s_last_err = MVP_OK;
-    s_wav_data = NULL;
-    s_wav_size = 0U;
+    s_clip = NULL;
+    s_clip_index = 0U;
+    s_clip_count = 0U;
+    s_last_reply[0] = '\0';
     s_last_step = "WIFI_INIT";
     s_boot_probe_retry = 0U;
     s_boot_wait_done = false;
 
-    LOGI("MVP start: RA6M5 + W800 HTTP upload (build r2)");
+    LOGI("MVP start: RA6M5 + W800 speaker replay demo");
 }
 
 void app_main_poll(void)
@@ -367,26 +370,39 @@ void app_main_poll(void)
         }
 
         case WIFI_READY:
-            rc = cloud_client_init();
+            rc = speaker_demo_client_init();
             if (MVP_OK != rc)
             {
                 enter_error(rc);
                 break;
             }
 
-            s_wav_data = test_audio_get_data();
-            s_wav_size = test_audio_get_size();
-            if ((NULL == s_wav_data) || (0U == s_wav_size))
+            s_clip_count = test_audio_clip_count();
+            s_clip_index = 0U;
+            if (0U == s_clip_count)
             {
+                LOGE("No embedded voice clips found. Generate src/mvp/test_audio_data.c with tools/record_speaker_dataset.py");
                 enter_error(MVP_ERR_ARG);
                 break;
             }
 
-            LOGI("WIFI ready, test wav=%s size=%lu", test_audio_get_name(), (unsigned long) s_wav_size);
+            LOGI("WIFI ready, embedded clip count=%lu", (unsigned long) s_clip_count);
             s_state = UPLOAD_START;
             break;
 
         case UPLOAD_START:
+            s_clip = test_audio_get_clip(s_clip_index);
+            if (NULL == s_clip)
+            {
+                enter_error(MVP_ERR_ARG);
+                break;
+            }
+            LOGI("Prepare clip[%lu/%lu]: %s role=%s speaker=%s",
+                 (unsigned long) (s_clip_index + 1U),
+                 (unsigned long) s_clip_count,
+                 s_clip->name,
+                 (TEST_AUDIO_ROLE_ENROLL == s_clip->role) ? "enroll" : "identify",
+                 s_clip->speaker_id);
             s_state = UPLOAD_SEND;
             break;
 
@@ -401,7 +417,7 @@ void app_main_poll(void)
                     LOGW("UPLOAD retry %d/2", upload_try);
                     R_BSP_SoftwareDelay(500U, BSP_DELAY_UNITS_MILLISECONDS);
                 }
-                rc = cloud_client_upload_wav_once(s_wav_data, s_wav_size);
+                rc = speaker_demo_client_send_clip(s_clip, s_last_reply, sizeof(s_last_reply));
                 if (MVP_OK == rc)
                 {
                     upload_ok = 1;
@@ -424,16 +440,16 @@ void app_main_poll(void)
 
         case RESULT_PARSE:
         {
-            char text[CLOUD_TEXT_MAX_LEN];
-            float conf = 0.0f;
-            int code = cloud_client_get_last_result(text, sizeof(text), &conf);
-            /* MicroLib printf does not support %f; use integer millis. */
+            LOGI("Speaker server reply: %s", s_last_reply);
+            s_clip_index++;
+            if (s_clip_index < s_clip_count)
             {
-                int conf_pct = (int)(conf * 1000.0f + 0.5f);
-                LOGI("ASR result: code=%d text=%s confidence=%d.%03d",
-                     code, text, conf_pct / 1000, conf_pct % 1000);
+                s_state = UPLOAD_START;
             }
-            s_state = DONE;
+            else
+            {
+                s_state = DONE;
+            }
             break;
         }
 

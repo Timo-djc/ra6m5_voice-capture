@@ -260,8 +260,8 @@ I (ra_cfg\fsp_cfg\r_dtc_cfg.h)(0x69A1C176)
 I (ra\fsp\inc\api\r_i2s_api.h)(0x693C416A)
 I (ra\fsp\inc\instances\r_ssi.h)(0x693C416A)
 I (src\ui\font.h)(0x69A407B9)
-F (.\src\ui\ui_state_machine.c)(0x69A84630)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/ui_state_machine.o -MMD)
-I (src\ui\ui_state_machine.h)(0x69A84610)
+F (.\src\ui\ui_state_machine.c)(0x69AEC888)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/ui_state_machine.o -MMD)
+I (src\ui\ui_state_machine.h)(0x69AEC7D3)
 I (src\ui\ui_config.h)(0x69A794D9)
 I (src\ui\lcd_draw.h)(0x69A7979A)
 F (.\src\drivers\drv_touch.c)(0x69A841D9)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/drv_touch.o -MMD)
@@ -328,7 +328,7 @@ I (ra_cfg\fsp_cfg\r_dtc_cfg.h)(0x69A1C176)
 I (ra\fsp\inc\api\r_i2s_api.h)(0x693C416A)
 I (ra\fsp\inc\instances\r_ssi.h)(0x693C416A)
 I (src\drivers\drv_disp.h)(0x69A794A9)
-F (.\src\hal_entry.c)(0x69AD173E)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/hal_entry.o -MMD)
+F (.\src\hal_entry.c)(0x69AECBD2)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/hal_entry.o -MMD)
 I (ra_gen\hal_data.h)(0x69ABB686)
 I (ra\fsp\inc\api\bsp_api.h)(0x693C416A)
 I (ra\fsp\inc\api\fsp_common_api.h)(0x693C416A)
@@ -390,17 +390,19 @@ I (ra\fsp\inc\instances\r_dtc.h)(0x693C416A)
 I (ra_cfg\fsp_cfg\r_dtc_cfg.h)(0x69A1C176)
 I (ra\fsp\inc\api\r_i2s_api.h)(0x693C416A)
 I (ra\fsp\inc\instances\r_ssi.h)(0x693C416A)
-I (src\audio_capture.h)(0x69AC3B74)
+I (src\audio_capture.h)(0x69AEC709)
 I (src\net\cloud_asr_cfg.h)(0x69AC354C)
 I (src\net\cloud_asr_client.h)(0x69AB8A64)
+I (src\net\cloud_speaker_cfg.h)(0x69AEC724)
+I (src\net\cloud_speaker_client.h)(0x69AEC724)
 I (src\net\w800_at.h)(0x69ABB6E9)
 I (src\mvp\app_main.h)(0x69AD01CC)
-I (src\ui\ui_state_machine.h)(0x69A84610)
+I (src\ui\ui_state_machine.h)(0x69AEC7D3)
 I (src\ui\ui_config.h)(0x69A794D9)
 I (src\drivers\drv_disp.h)(0x69A794A9)
 I (src\drivers\drv_touch.h)(0x69A82DCD)
-F (.\src\audio_capture.c)(0x69AD17EB)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/audio_capture.o -MMD)
-I (src\audio_capture.h)(0x69AC3B74)
+F (.\src\audio_capture.c)(0x69AEC71B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/audio_capture.o -MMD)
+I (src\audio_capture.h)(0x69AEC709)
 I (ra_gen\hal_data.h)(0x69ABB686)
 I (ra\fsp\inc\api\bsp_api.h)(0x693C416A)
 I (ra\fsp\inc\api\fsp_common_api.h)(0x693C416A)
@@ -529,15 +531,218 @@ I (ra\fsp\inc\instances\r_dtc.h)(0x693C416A)
 I (ra_cfg\fsp_cfg\r_dtc_cfg.h)(0x69A1C176)
 I (ra\fsp\inc\api\r_i2s_api.h)(0x693C416A)
 I (ra\fsp\inc\instances\r_ssi.h)(0x693C416A)
-F (.\src\audio_capture.h)(0x69AC3B74)()
+F (.\src\audio_capture.h)(0x69AEC709)()
 F (.\src\audio_features.h)(0x69A57021)()
-F (.\src\mvp\app_main.c)(0x69AD8BEE)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/app_main.o -MMD)
+F (.\src\net\cloud_asr_client.c)(0x69AB8A6D)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/cloud_asr_client.o -MMD)
+I (src\net\cloud_asr_client.h)(0x69AB8A64)
+I (src\net\..\audio_capture.h)(0x69AEC709)
+I (ra_gen\hal_data.h)(0x69ABB686)
+I (ra\fsp\inc\api\bsp_api.h)(0x693C416A)
+I (ra\fsp\inc\api\fsp_common_api.h)(0x693C416A)
+I (ra\fsp\inc\fsp_version.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\bsp\bsp_cfg.h)(0x69A58D0A)
+I (ra_gen\bsp_clock_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_family_cfg.h)(0x69A825CD)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_device_pn_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_device_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_mcu_info.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_elc.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_feature.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_peripheral.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_ofs_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\board_cfg.h)(0x69A1C176)
+I (ra_gen\vector_data.h)(0x69ABB6CC)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_exceptions.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\cmsis\Device\RENESAS\Include\renesas.h)(0x693C416A)
+I (ra\arm\CMSIS_6\CMSIS\Core\Include\cmsis_compiler.h)(0x693C3FFA)
+I (ra\arm\CMSIS_6\CMSIS\Core\Include\cmsis_armclang.h)(0x693C3FFA)
+I (ra\fsp\inc\api\..\..\src\bsp\cmsis\Device\RENESAS\Include\R7FA6M5BH.h)(0x693C419A)
+I (ra\arm\CMSIS_6\CMSIS\Core\Include\core_cm33.h)(0x693C3FFA)
+I (ra\fsp\inc\api\..\..\src\bsp\cmsis\Device\RENESAS\Include\system.h)(0x693C416A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_common.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\inc\api\fsp_common_api.h)(0x693C416A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_compiler_support.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_tfu.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_sdram.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_mmf.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_ipc.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_ospi_b.h)(0x693C419A)
+I (D:\keil_v5\keil\PROJECT\A_i2s_capture\bsp_linker_info.h)(0x6989A622)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_register_protection.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_irq.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_io.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_group_irq.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_clocks.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_module_stop.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_security.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\inc\fsp_features.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\inc\..\..\fsp\src\bsp\mcu\all\bsp_compiler_support.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_delay.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_mcu_api.h)(0x693C419A)
+I (ra_gen\common_data.h)(0x69A1C176)
+I (ra\fsp\inc\instances\r_ioport.h)(0x693C419A)
+I (ra\fsp\inc\api\r_ioport_api.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\r_ioport_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\bsp_pin_cfg.h)(0x69A1C176)
+I (ra\fsp\inc\instances\r_gpt.h)(0x693C416A)
+I (ra\fsp\inc\api\r_timer_api.h)(0x693C416A)
+I (ra\fsp\inc\instances\r_sci_i2c.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\r_sci_i2c_cfg.h)(0x69A3B007)
+I (ra\fsp\inc\api\r_i2c_master_api.h)(0x693C416A)
+I (ra\fsp\inc\api\r_transfer_api.h)(0x693C416A)
+I (ra\fsp\inc\instances\r_sci_uart.h)(0x693C416A)
+I (ra\fsp\inc\api\r_uart_api.h)(0x693C416C)
+I (ra_cfg\fsp_cfg\r_sci_uart_cfg.h)(0x69A1C176)
+I (ra\fsp\inc\instances\r_dtc.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\r_dtc_cfg.h)(0x69A1C176)
+I (ra\fsp\inc\api\r_i2s_api.h)(0x693C416A)
+I (ra\fsp\inc\instances\r_ssi.h)(0x693C416A)
+I (src\net\cloud_asr_cfg.h)(0x69AC354C)
+I (src\net\w800_at.h)(0x69ABB6E9)
+F (.\src\net\cloud_speaker_client.c)(0x69AEC77B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/cloud_speaker_client.o -MMD)
+I (src\net\cloud_speaker_client.h)(0x69AEC724)
+I (src\net\..\audio_capture.h)(0x69AEC709)
+I (ra_gen\hal_data.h)(0x69ABB686)
+I (ra\fsp\inc\api\bsp_api.h)(0x693C416A)
+I (ra\fsp\inc\api\fsp_common_api.h)(0x693C416A)
+I (ra\fsp\inc\fsp_version.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\bsp\bsp_cfg.h)(0x69A58D0A)
+I (ra_gen\bsp_clock_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_family_cfg.h)(0x69A825CD)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_device_pn_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_device_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_mcu_info.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_elc.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_feature.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_peripheral.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_ofs_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\board_cfg.h)(0x69A1C176)
+I (ra_gen\vector_data.h)(0x69ABB6CC)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_exceptions.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\cmsis\Device\RENESAS\Include\renesas.h)(0x693C416A)
+I (ra\arm\CMSIS_6\CMSIS\Core\Include\cmsis_compiler.h)(0x693C3FFA)
+I (ra\arm\CMSIS_6\CMSIS\Core\Include\cmsis_armclang.h)(0x693C3FFA)
+I (ra\fsp\inc\api\..\..\src\bsp\cmsis\Device\RENESAS\Include\R7FA6M5BH.h)(0x693C419A)
+I (ra\arm\CMSIS_6\CMSIS\Core\Include\core_cm33.h)(0x693C3FFA)
+I (ra\fsp\inc\api\..\..\src\bsp\cmsis\Device\RENESAS\Include\system.h)(0x693C416A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_common.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\inc\api\fsp_common_api.h)(0x693C416A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_compiler_support.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_tfu.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_sdram.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_mmf.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_ipc.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_ospi_b.h)(0x693C419A)
+I (D:\keil_v5\keil\PROJECT\A_i2s_capture\bsp_linker_info.h)(0x6989A622)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_register_protection.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_irq.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_io.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_group_irq.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_clocks.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_module_stop.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_security.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\inc\fsp_features.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\inc\..\..\fsp\src\bsp\mcu\all\bsp_compiler_support.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_delay.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_mcu_api.h)(0x693C419A)
+I (ra_gen\common_data.h)(0x69A1C176)
+I (ra\fsp\inc\instances\r_ioport.h)(0x693C419A)
+I (ra\fsp\inc\api\r_ioport_api.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\r_ioport_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\bsp_pin_cfg.h)(0x69A1C176)
+I (ra\fsp\inc\instances\r_gpt.h)(0x693C416A)
+I (ra\fsp\inc\api\r_timer_api.h)(0x693C416A)
+I (ra\fsp\inc\instances\r_sci_i2c.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\r_sci_i2c_cfg.h)(0x69A3B007)
+I (ra\fsp\inc\api\r_i2c_master_api.h)(0x693C416A)
+I (ra\fsp\inc\api\r_transfer_api.h)(0x693C416A)
+I (ra\fsp\inc\instances\r_sci_uart.h)(0x693C416A)
+I (ra\fsp\inc\api\r_uart_api.h)(0x693C416C)
+I (ra_cfg\fsp_cfg\r_sci_uart_cfg.h)(0x69A1C176)
+I (ra\fsp\inc\instances\r_dtc.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\r_dtc_cfg.h)(0x69A1C176)
+I (ra\fsp\inc\api\r_i2s_api.h)(0x693C416A)
+I (ra\fsp\inc\instances\r_ssi.h)(0x693C416A)
+I (src\net\cloud_speaker_cfg.h)(0x69AEC724)
+I (src\net\cloud_asr_cfg.h)(0x69AC354C)
+I (src\net\w800_at.h)(0x69ABB6E9)
+F (.\src\net\w800_at.c)(0x69AED6DA)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/w800_at.o -MMD)
+I (src\net\w800_at.h)(0x69ABB6E9)
+I (ra_gen\hal_data.h)(0x69ABB686)
+I (ra\fsp\inc\api\bsp_api.h)(0x693C416A)
+I (ra\fsp\inc\api\fsp_common_api.h)(0x693C416A)
+I (ra\fsp\inc\fsp_version.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\bsp\bsp_cfg.h)(0x69A58D0A)
+I (ra_gen\bsp_clock_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_family_cfg.h)(0x69A825CD)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_device_pn_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_device_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_mcu_info.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_elc.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_feature.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_peripheral.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_ofs_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\board_cfg.h)(0x69A1C176)
+I (ra_gen\vector_data.h)(0x69ABB6CC)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_exceptions.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\cmsis\Device\RENESAS\Include\renesas.h)(0x693C416A)
+I (ra\arm\CMSIS_6\CMSIS\Core\Include\cmsis_compiler.h)(0x693C3FFA)
+I (ra\arm\CMSIS_6\CMSIS\Core\Include\cmsis_armclang.h)(0x693C3FFA)
+I (ra\fsp\inc\api\..\..\src\bsp\cmsis\Device\RENESAS\Include\R7FA6M5BH.h)(0x693C419A)
+I (ra\arm\CMSIS_6\CMSIS\Core\Include\core_cm33.h)(0x693C3FFA)
+I (ra\fsp\inc\api\..\..\src\bsp\cmsis\Device\RENESAS\Include\system.h)(0x693C416A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_common.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\inc\api\fsp_common_api.h)(0x693C416A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_compiler_support.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_tfu.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_sdram.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_mmf.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_ipc.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_ospi_b.h)(0x693C419A)
+I (D:\keil_v5\keil\PROJECT\A_i2s_capture\bsp_linker_info.h)(0x6989A622)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_register_protection.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_irq.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_io.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_group_irq.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_clocks.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_module_stop.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_security.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\inc\fsp_features.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\inc\..\..\fsp\src\bsp\mcu\all\bsp_compiler_support.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_delay.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_mcu_api.h)(0x693C419A)
+I (ra_gen\common_data.h)(0x69A1C176)
+I (ra\fsp\inc\instances\r_ioport.h)(0x693C419A)
+I (ra\fsp\inc\api\r_ioport_api.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\r_ioport_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\bsp_pin_cfg.h)(0x69A1C176)
+I (ra\fsp\inc\instances\r_gpt.h)(0x693C416A)
+I (ra\fsp\inc\api\r_timer_api.h)(0x693C416A)
+I (ra\fsp\inc\instances\r_sci_i2c.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\r_sci_i2c_cfg.h)(0x69A3B007)
+I (ra\fsp\inc\api\r_i2c_master_api.h)(0x693C416A)
+I (ra\fsp\inc\api\r_transfer_api.h)(0x693C416A)
+I (ra\fsp\inc\instances\r_sci_uart.h)(0x693C416A)
+I (ra\fsp\inc\api\r_uart_api.h)(0x693C416C)
+I (ra_cfg\fsp_cfg\r_sci_uart_cfg.h)(0x69A1C176)
+I (ra\fsp\inc\instances\r_dtc.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\r_dtc_cfg.h)(0x69A1C176)
+I (ra\fsp\inc\api\r_i2s_api.h)(0x693C416A)
+I (ra\fsp\inc\instances\r_ssi.h)(0x693C416A)
+I (src\net\..\audio_capture.h)(0x69AEC709)
+I (src\net\cloud_asr_cfg.h)(0x69AC354C)
+F (.\src\net\cloud_asr_cfg.h)(0x69AC354C)()
+F (.\src\net\cloud_asr_client.h)(0x69AB8A64)()
+F (.\src\net\cloud_speaker_cfg.h)(0x69AEC724)()
+F (.\src\net\cloud_speaker_client.h)(0x69AEC724)()
+F (.\src\net\w800_at.h)(0x69ABB6E9)()
+F (.\src\mvp\app_main.c)(0x69AED53B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/app_main.o -MMD)
 I (src\mvp\app_main.h)(0x69AD01CC)
-I (src\mvp\config.h)(0x69AD84F3)
-I (src\mvp\cloud_http_client.h)(0x69AD017D)
+I (src\mvp\config.h)(0x69B2CBBB)
+I (src\mvp\cloud_speaker_demo_client.h)(0x69AECBFB)
+I (src\mvp\test_audio_data.h)(0x69B167D6)
 I (src\mvp\log.h)(0x69AD0035)
-I (src\mvp\test_audio_data.h)(0x69AD01A5)
-I (src\mvp\w800_at.h)(0x69AD1DA3)
+I (src\mvp\w800_at.h)(0x69AECA2A)
 I (ra_gen\hal_data.h)(0x69ABB686)
 I (ra\fsp\inc\api\bsp_api.h)(0x693C416A)
 I (ra\fsp\inc\api\fsp_common_api.h)(0x693C416A)
@@ -600,13 +805,81 @@ I (ra_cfg\fsp_cfg\r_dtc_cfg.h)(0x69A1C176)
 I (ra\fsp\inc\api\r_i2s_api.h)(0x693C416A)
 I (ra\fsp\inc\instances\r_ssi.h)(0x693C416A)
 I (src\mvp\w800_wifi.h)(0x69AD02B6)
-I (src\mvp\..\audio_capture.h)(0x69AC3B74)
+I (src\mvp\..\audio_capture.h)(0x69AEC709)
+F (.\src\mvp\cloud_speaker_demo_client.c)(0x69B133E1)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/cloud_speaker_demo_client.o -MMD)
+I (src\mvp\cloud_speaker_demo_client.h)(0x69AECBFB)
+I (src\mvp\test_audio_data.h)(0x69B167D6)
+I (src\mvp\config.h)(0x69B2CBBB)
+I (src\mvp\log.h)(0x69AD0035)
+I (src\mvp\w800_at.h)(0x69AECA2A)
+I (ra_gen\hal_data.h)(0x69ABB686)
+I (ra\fsp\inc\api\bsp_api.h)(0x693C416A)
+I (ra\fsp\inc\api\fsp_common_api.h)(0x693C416A)
+I (ra\fsp\inc\fsp_version.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\bsp\bsp_cfg.h)(0x69A58D0A)
+I (ra_gen\bsp_clock_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_family_cfg.h)(0x69A825CD)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_device_pn_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_device_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_mcu_info.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_elc.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_feature.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_peripheral.h)(0x693C419A)
+I (ra_cfg\fsp_cfg\bsp\bsp_mcu_ofs_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\board_cfg.h)(0x69A1C176)
+I (ra_gen\vector_data.h)(0x69ABB6CC)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_exceptions.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\cmsis\Device\RENESAS\Include\renesas.h)(0x693C416A)
+I (ra\arm\CMSIS_6\CMSIS\Core\Include\cmsis_compiler.h)(0x693C3FFA)
+I (ra\arm\CMSIS_6\CMSIS\Core\Include\cmsis_armclang.h)(0x693C3FFA)
+I (ra\fsp\inc\api\..\..\src\bsp\cmsis\Device\RENESAS\Include\R7FA6M5BH.h)(0x693C419A)
+I (ra\arm\CMSIS_6\CMSIS\Core\Include\core_cm33.h)(0x693C3FFA)
+I (ra\fsp\inc\api\..\..\src\bsp\cmsis\Device\RENESAS\Include\system.h)(0x693C416A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_common.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\inc\api\fsp_common_api.h)(0x693C416A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_compiler_support.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_tfu.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_sdram.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_mmf.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_ipc.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_ospi_b.h)(0x693C419A)
+I (D:\keil_v5\keil\PROJECT\A_i2s_capture\bsp_linker_info.h)(0x6989A622)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_register_protection.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_irq.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_io.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_group_irq.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_clocks.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_module_stop.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_security.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\inc\fsp_features.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\inc\..\..\fsp\src\bsp\mcu\all\bsp_compiler_support.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_delay.h)(0x693C419A)
+I (ra\fsp\inc\api\..\..\src\bsp\mcu\all\bsp_mcu_api.h)(0x693C419A)
+I (ra_gen\common_data.h)(0x69A1C176)
+I (ra\fsp\inc\instances\r_ioport.h)(0x693C419A)
+I (ra\fsp\inc\api\r_ioport_api.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\r_ioport_cfg.h)(0x69A1C176)
+I (ra_cfg\fsp_cfg\bsp\bsp_pin_cfg.h)(0x69A1C176)
+I (ra\fsp\inc\instances\r_gpt.h)(0x693C416A)
+I (ra\fsp\inc\api\r_timer_api.h)(0x693C416A)
+I (ra\fsp\inc\instances\r_sci_i2c.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\r_sci_i2c_cfg.h)(0x69A3B007)
+I (ra\fsp\inc\api\r_i2c_master_api.h)(0x693C416A)
+I (ra\fsp\inc\api\r_transfer_api.h)(0x693C416A)
+I (ra\fsp\inc\instances\r_sci_uart.h)(0x693C416A)
+I (ra\fsp\inc\api\r_uart_api.h)(0x693C416C)
+I (ra_cfg\fsp_cfg\r_sci_uart_cfg.h)(0x69A1C176)
+I (ra\fsp\inc\instances\r_dtc.h)(0x693C416A)
+I (ra_cfg\fsp_cfg\r_dtc_cfg.h)(0x69A1C176)
+I (ra\fsp\inc\api\r_i2s_api.h)(0x693C416A)
+I (ra\fsp\inc\instances\r_ssi.h)(0x693C416A)
+I (src\mvp\w800_socket.h)(0x69AD5AB5)
 F (.\src\mvp\cloud_http_client.c)(0x69AD8C00)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/cloud_http_client.o -MMD)
 I (src\mvp\cloud_http_client.h)(0x69AD017D)
-I (src\mvp\config.h)(0x69AD84F3)
+I (src\mvp\config.h)(0x69B2CBBB)
 I (src\mvp\http_parser_lite.h)(0x69AD0138)
 I (src\mvp\log.h)(0x69AD0035)
-I (src\mvp\w800_at.h)(0x69AD1DA3)
+I (src\mvp\w800_at.h)(0x69AECA2A)
 I (ra_gen\hal_data.h)(0x69ABB686)
 I (ra\fsp\inc\api\bsp_api.h)(0x693C416A)
 I (ra\fsp\inc\api\fsp_common_api.h)(0x693C416A)
@@ -671,10 +944,10 @@ I (ra\fsp\inc\instances\r_ssi.h)(0x693C416A)
 I (src\mvp\w800_socket.h)(0x69AD5AB5)
 F (.\src\mvp\http_parser_lite.c)(0x69AD8BE2)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/http_parser_lite.o -MMD)
 I (src\mvp\http_parser_lite.h)(0x69AD0138)
-I (src\mvp\config.h)(0x69AD84F3)
+I (src\mvp\config.h)(0x69B2CBBB)
 F (.\src\mvp\log.c)(0x69AD003F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/log.o -MMD)
 I (src\mvp\log.h)(0x69AD0035)
-I (src\mvp\..\audio_capture.h)(0x69AC3B74)
+I (src\mvp\..\audio_capture.h)(0x69AEC709)
 I (ra_gen\hal_data.h)(0x69ABB686)
 I (ra\fsp\inc\api\bsp_api.h)(0x693C416A)
 I (ra\fsp\inc\api\fsp_common_api.h)(0x693C416A)
@@ -736,12 +1009,12 @@ I (ra\fsp\inc\instances\r_dtc.h)(0x693C416A)
 I (ra_cfg\fsp_cfg\r_dtc_cfg.h)(0x69A1C176)
 I (ra\fsp\inc\api\r_i2s_api.h)(0x693C416A)
 I (ra\fsp\inc\instances\r_ssi.h)(0x693C416A)
-F (.\src\mvp\test_audio_data.c)(0x69AD0202)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/test_audio_data.o -MMD)
-I (src\mvp\test_audio_data.h)(0x69AD01A5)
+F (.\src\mvp\test_audio_data.c)(0x69B167D6)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/test_audio_data.o -MMD)
+I (src\mvp\test_audio_data.h)(0x69B167D6)
 F (.\src\mvp\uart_ringbuf.c)(0x69AD005D)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/uart_ringbuf.o -MMD)
 I (src\mvp\uart_ringbuf.h)(0x69AD0047)
-F (.\src\mvp\w800_at.c)(0x69AD87AD)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/w800_at.o -MMD)
-I (src\mvp\w800_at.h)(0x69AD1DA3)
+F (.\src\mvp\w800_at.c)(0x69AECA2A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/w800_at_1.o -MMD)
+I (src\mvp\w800_at.h)(0x69AECA2A)
 I (ra_gen\hal_data.h)(0x69ABB686)
 I (ra\fsp\inc\api\bsp_api.h)(0x693C416A)
 I (ra\fsp\inc\api\fsp_common_api.h)(0x693C416A)
@@ -803,14 +1076,14 @@ I (ra\fsp\inc\instances\r_dtc.h)(0x693C416A)
 I (ra_cfg\fsp_cfg\r_dtc_cfg.h)(0x69A1C176)
 I (ra\fsp\inc\api\r_i2s_api.h)(0x693C416A)
 I (ra\fsp\inc\instances\r_ssi.h)(0x693C416A)
-I (src\mvp\config.h)(0x69AD84F3)
+I (src\mvp\config.h)(0x69B2CBBB)
 I (src\mvp\log.h)(0x69AD0035)
 I (src\mvp\uart_ringbuf.h)(0x69AD0047)
 F (.\src\mvp\w800_socket.c)(0x69AD80A0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/w800_socket.o -MMD)
 I (src\mvp\w800_socket.h)(0x69AD5AB5)
-I (src\mvp\config.h)(0x69AD84F3)
+I (src\mvp\config.h)(0x69B2CBBB)
 I (src\mvp\log.h)(0x69AD0035)
-I (src\mvp\w800_at.h)(0x69AD1DA3)
+I (src\mvp\w800_at.h)(0x69AECA2A)
 I (ra_gen\hal_data.h)(0x69ABB686)
 I (ra\fsp\inc\api\bsp_api.h)(0x693C416A)
 I (ra\fsp\inc\api\fsp_common_api.h)(0x693C416A)
@@ -874,9 +1147,9 @@ I (ra\fsp\inc\api\r_i2s_api.h)(0x693C416A)
 I (ra\fsp\inc\instances\r_ssi.h)(0x693C416A)
 F (.\src\mvp\w800_wifi.c)(0x69AD198B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/w800_wifi.o -MMD)
 I (src\mvp\w800_wifi.h)(0x69AD02B6)
-I (src\mvp\config.h)(0x69AD84F3)
+I (src\mvp\config.h)(0x69B2CBBB)
 I (src\mvp\log.h)(0x69AD0035)
-I (src\mvp\w800_at.h)(0x69AD1DA3)
+I (src\mvp\w800_at.h)(0x69AECA2A)
 I (ra_gen\hal_data.h)(0x69ABB686)
 I (ra\fsp\inc\api\bsp_api.h)(0x693C416A)
 I (ra\fsp\inc\api\fsp_common_api.h)(0x693C416A)
@@ -940,7 +1213,7 @@ I (ra\fsp\inc\api\r_i2s_api.h)(0x693C416A)
 I (ra\fsp\inc\instances\r_ssi.h)(0x693C416A)
 F (.\src\mvp\wav_pack.c)(0x69AD01C0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char-gdwarf-4 -Oz -ffunction-sections -I d:/keil_v5/keil/tensorflow/third_party/flatbuffers -I d:/keil_v5/keil/tensorflow/third_party/kissfft -I d:/keil_v5/keil/tensorflow/third_party/kissfft/tools -I d:/keil_v5/keil/tensorflow/third_party/tflite-micro -I d:/keil_v5/keil/tensorflow/third_party -Wno-license-management -Wunused -Wuninitialized -Wall -Wextra -Wmissing-declarations -Wconversion -Wpointer-arith -Wshadow -Waggregate-return -Wfloat-equal-I./RTE/_Target_1-I./ra/arm/CMSIS_6/CMSIS/Core/Include-I./ra/fsp/inc-I./ra/fsp/inc/api-I./ra/fsp/inc/instances-I./ra_cfg/fsp_cfg-I./ra_cfg/fsp_cfg/bsp-I./ra_gen-ID:/keil_v5/keil/ARM/CMSIS/6.3.0/CMSIS/Core/Include-ID:/keil_v5/keil/PROJECT/A_i2s_capture-D__UVISION_VERSION="543" -D_RTE_ -DARM_MATH_CM33 -DTFLITE_SINGLE_ROUNDING-o ./objects/wav_pack.o -MMD)
 I (src\mvp\wav_pack.h)(0x69AD01AB)
-I (src\mvp\config.h)(0x69AD84F3)
+I (src\mvp\config.h)(0x69B2CBBB)
 F (d:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2/tensorflow/compiler/mlir/lite/schema/schema_utils.cpp)(0x69A145A4)()
 F (d:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2/tensorflow/lite/micro/kernels/kernel_util.cpp)(0x69A145A4)()
 F (d:/keil_v5/keil/tensorflow/tensorflow-lite-micro/1.25.2/tensorflow/lite\core\api\flatbuffer_conversions.cpp)(0x69A145A4)()

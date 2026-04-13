@@ -28,6 +28,16 @@ pip install -r requirements.txt
 uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
+Port split:
+- HTTP API listens on `8000` by default (`uvicorn --port`).
+- Speaker raw TCP server listens on `18080` by default (`SPEAKER_TCP_PORT` in `server/config.py`).
+- MCU `SPEAKER_SERVER_PORT` must match the raw TCP server port, not the HTTP port.
+
+From repo root, the equivalent startup command is:
+```bash
+uvicorn server.main:app --host 0.0.0.0 --port 8000
+```
+
 ## 6. Expected flow
 - `WIFI_INIT -> WIFI_CONFIG -> WIFI_REBOOT -> WIFI_WAIT_READY -> WIFI_JOIN -> WIFI_CHECK_IP`
 - `UPLOAD_START -> UPLOAD_SEND -> UPLOAD_WAIT_RESP -> RESULT_PARSE -> DONE`

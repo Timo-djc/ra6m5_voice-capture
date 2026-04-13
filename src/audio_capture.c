@@ -83,6 +83,15 @@ static float s_hpf_prev_y = 0.0f;
 static volatile bool s_digit_result_ready = false;
 static int s_digit_result_value = -1;
 static float s_digit_result_confidence = 0.0f;
+static volatile bool s_speaker_result_ready = false;
+static uint8_t s_speaker_result_known = 0U;
+static float s_speaker_result_score = 0.0f;
+static char s_speaker_result_id[AUDIO_SPEAKER_ID_MAX_LEN + 1U];
+static volatile bool s_speaker_enroll_ready = false;
+static uint8_t s_speaker_enroll_accepted = 0U;
+static uint8_t s_speaker_enroll_required = 0U;
+static float s_speaker_enroll_score = 0.0f;
+static char s_speaker_enroll_id[AUDIO_SPEAKER_ID_MAX_LEN + 1U];
 
 #if ASR_MODE_LOCAL
 /* TFLM features buffer */
@@ -531,6 +540,53 @@ bool audio_capture_consume_digit_result(int * out_digit, float * out_confidence)
     return true;
 }
 
+bool audio_capture_consume_speaker_result(audio_speaker_result_t * out_result)
+{
+    bool ready;
+
+    if (NULL == out_result)
+    {
+        return false;
+    }
+
+    __disable_irq();
+    ready = s_speaker_result_ready;
+    if (ready)
+    {
+        s_speaker_result_ready = false;
+        out_result->known = s_speaker_result_known;
+        out_result->score = s_speaker_result_score;
+        memcpy(out_result->speaker_id, s_speaker_result_id, sizeof(out_result->speaker_id));
+    }
+    __enable_irq();
+
+    return ready;
+}
+
+bool audio_capture_consume_enroll_progress(audio_speaker_enroll_progress_t * out_progress)
+{
+    bool ready;
+
+    if (NULL == out_progress)
+    {
+        return false;
+    }
+
+    __disable_irq();
+    ready = s_speaker_enroll_ready;
+    if (ready)
+    {
+        s_speaker_enroll_ready = false;
+        out_progress->accepted = s_speaker_enroll_accepted;
+        out_progress->required = s_speaker_enroll_required;
+        out_progress->score = s_speaker_enroll_score;
+        memcpy(out_progress->speaker_id, s_speaker_enroll_id, sizeof(out_progress->speaker_id));
+    }
+    __enable_irq();
+
+    return ready;
+}
+
 bool audio_capture_consume_slot_pcm16(int16_t * dst,
                                       uint32_t max_samples,
                                       uint32_t * out_samples,
@@ -586,6 +642,35 @@ void audio_capture_publish_digit_result(int digit, float conf)
     s_digit_result_value = digit;
     s_digit_result_confidence = conf;
     s_digit_result_ready = true;
+    __enable_irq();
+}
+
+void audio_capture_publish_speaker_result(uint8_t known, const char * speaker_id, float score)
+{
+    __disable_irq();
+    s_speaker_result_known = known;
+    s_speaker_result_score = score;
+    memset(s_speaker_result_id, 0, sizeof(s_speaker_result_id));
+    if (NULL != speaker_id)
+    {
+        strncpy(s_speaker_result_id, speaker_id, sizeof(s_speaker_result_id) - 1U);
+    }
+    s_speaker_result_ready = true;
+    __enable_irq();
+}
+
+void audio_capture_publish_enroll_progress(const char * speaker_id, uint8_t accepted, uint8_t required, float score)
+{
+    __disable_irq();
+    s_speaker_enroll_accepted = accepted;
+    s_speaker_enroll_required = required;
+    s_speaker_enroll_score = score;
+    memset(s_speaker_enroll_id, 0, sizeof(s_speaker_enroll_id));
+    if (NULL != speaker_id)
+    {
+        strncpy(s_speaker_enroll_id, speaker_id, sizeof(s_speaker_enroll_id) - 1U);
+    }
+    s_speaker_enroll_ready = true;
     __enable_irq();
 }
 
@@ -1033,6 +1118,15 @@ void audio_capture_init(void)
     s_digit_result_ready = false;
     s_digit_result_value = -1;
     s_digit_result_confidence = 0.0f;
+    s_speaker_result_ready = false;
+    s_speaker_result_known = 0U;
+    s_speaker_result_score = 0.0f;
+    memset(s_speaker_result_id, 0, sizeof(s_speaker_result_id));
+    s_speaker_enroll_ready = false;
+    s_speaker_enroll_accepted = 0U;
+    s_speaker_enroll_required = 0U;
+    s_speaker_enroll_score = 0.0f;
+    memset(s_speaker_enroll_id, 0, sizeof(s_speaker_enroll_id));
     s_hpf_prev_x = 0.0f;
     s_hpf_prev_y = 0.0f;
 #if ASR_MODE_LOCAL

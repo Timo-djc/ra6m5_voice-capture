@@ -32,6 +32,23 @@ typedef struct st_audio_stats
     uint32_t ssi_state;
 } audio_stats_t;
 
+#define AUDIO_SPEAKER_ID_MAX_LEN    (32U)
+
+typedef struct st_audio_speaker_result
+{
+    uint8_t known;
+    float score;
+    char speaker_id[AUDIO_SPEAKER_ID_MAX_LEN + 1U];
+} audio_speaker_result_t;
+
+typedef struct st_audio_speaker_enroll_progress
+{
+    uint8_t accepted;
+    uint8_t required;
+    float score;
+    char speaker_id[AUDIO_SPEAKER_ID_MAX_LEN + 1U];
+} audio_speaker_enroll_progress_t;
+
 void audio_capture_init(void);
 void audio_capture_start(void);
 void audio_capture_process(void);
@@ -41,8 +58,12 @@ void audio_capture_ptt_press(void);
 void audio_capture_ptt_release(void);
 bool audio_capture_is_ptt_active(void);
 bool audio_capture_consume_digit_result(int * out_digit, float * out_confidence);
+bool audio_capture_consume_speaker_result(audio_speaker_result_t * out_result);
+bool audio_capture_consume_enroll_progress(audio_speaker_enroll_progress_t * out_progress);
 bool audio_capture_consume_slot_pcm16(int16_t * dst, uint32_t max_samples, uint32_t * out_samples, uint8_t * out_slot_index);
 void audio_capture_publish_digit_result(int digit, float conf);
+void audio_capture_publish_speaker_result(uint8_t known, const char * speaker_id, float score);
+void audio_capture_publish_enroll_progress(const char * speaker_id, uint8_t accepted, uint8_t required, float score);
 const audio_stats_t * audio_capture_stats_get(void);
 
 bool audio_debug_write_bytes(const uint8_t * data, uint32_t length);

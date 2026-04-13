@@ -1,9 +1,10 @@
 ./objects/app_main.o: src\mvp\app_main.c src\mvp\app_main.h \
-  src\mvp\config.h src\mvp\cloud_http_client.h src\mvp\log.h \
-  src\mvp\test_audio_data.h src\mvp\w800_at.h ra_gen\hal_data.h \
-  ra\fsp\inc\api\bsp_api.h ra\fsp\inc\api\fsp_common_api.h \
-  ra\fsp\inc\fsp_version.h ra_cfg\fsp_cfg\bsp\bsp_cfg.h \
-  ra_gen\bsp_clock_cfg.h ra_cfg\fsp_cfg\bsp\bsp_mcu_family_cfg.h \
+  src\mvp\config.h src\mvp\cloud_speaker_demo_client.h \
+  src\mvp\test_audio_data.h src\mvp\log.h src\mvp\w800_at.h \
+  ra_gen\hal_data.h ra\fsp\inc\api\bsp_api.h \
+  ra\fsp\inc\api\fsp_common_api.h ra\fsp\inc\fsp_version.h \
+  ra_cfg\fsp_cfg\bsp\bsp_cfg.h ra_gen\bsp_clock_cfg.h \
+  ra_cfg\fsp_cfg\bsp\bsp_mcu_family_cfg.h \
   ra_cfg\fsp_cfg\bsp\bsp_mcu_device_pn_cfg.h \
   ra_cfg\fsp_cfg\bsp\bsp_mcu_device_cfg.h \
   ra_cfg\fsp_cfg\bsp\..\..\..\ra\fsp\src\bsp\mcu\ra6m5\bsp_mcu_info.h \

@@ -1,4 +1,4 @@
-./objects/w800_at.o: src\mvp\w800_at.c src\mvp\w800_at.h \
+./objects/w800_at.o: src\net\w800_at.c src\net\w800_at.h \
   ra_gen\hal_data.h ra\fsp\inc\api\bsp_api.h \
   ra\fsp\inc\api\fsp_common_api.h ra\fsp\inc\fsp_version.h \
   ra_cfg\fsp_cfg\bsp\bsp_cfg.h ra_gen\bsp_clock_cfg.h \
@@ -47,4 +47,4 @@
   ra\fsp\inc\api\r_uart_api.h ra_cfg\fsp_cfg\r_sci_uart_cfg.h \
   ra\fsp\inc\instances\r_dtc.h ra_cfg\fsp_cfg\r_dtc_cfg.h \
   ra\fsp\inc\api\r_i2s_api.h ra\fsp\inc\instances\r_ssi.h \
-  src\mvp\config.h src\mvp\log.h src\mvp\uart_ringbuf.h
+  src\net\..\audio_capture.h src\net\cloud_asr_cfg.h

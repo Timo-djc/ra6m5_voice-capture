@@ -13,8 +13,16 @@
         <file category="include" name="src/"/>
         <file category="source" name="src/audio_capture.c"/>
         <file category="source" name="src/audio_features.c"/>
+        <file category="source" name="src/net/cloud_asr_client.c"/>
+        <file category="source" name="src/net/cloud_speaker_client.c"/>
+        <file category="source" name="src/net/w800_at.c"/>
         <file category="header" name="src/audio_capture.h" path=""/>
         <file category="header" name="src/audio_features.h" path=""/>
+        <file category="header" name="src/net/cloud_asr_cfg.h" path=""/>
+        <file category="header" name="src/net/cloud_asr_client.h" path=""/>
+        <file category="header" name="src/net/cloud_speaker_cfg.h" path=""/>
+        <file category="header" name="src/net/cloud_speaker_client.h" path=""/>
+        <file category="header" name="src/net/w800_at.h" path=""/>
         <file category="source" name="src/hal_entry.c"/>
       </project_files>
     </generator>

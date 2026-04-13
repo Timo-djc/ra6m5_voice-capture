@@ -6,6 +6,9 @@
 #include <stdio.h>
 #include <string.h>
 
+extern void mvp_uart5_callback(uart_callback_args_t * p_args);
+extern void mvp_uart6_callback(uart_callback_args_t * p_args);
+
 #define W800_BRIDGE_CHUNK_BYTES        (512U)
 #define W800_BRIDGE_CMD_BUFFER_SIZE    (48U)
 #define W800_BRIDGE_ESCAPE_GUARD_MS    (1000U)
@@ -1379,9 +1382,12 @@ void uart5_callback(uart_callback_args_t * p_args)
 #else
     (void) p_args;
 #endif
+
+    mvp_uart5_callback(p_args);
 }
 
 void uart6_callback(uart_callback_args_t * p_args)
 {
     channel_handle_callback(&s_at_uart, p_args);
+    mvp_uart6_callback(p_args);
 }

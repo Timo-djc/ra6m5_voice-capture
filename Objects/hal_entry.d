@@ -47,5 +47,6 @@
   ra\fsp\inc\instances\r_dtc.h ra_cfg\fsp_cfg\r_dtc_cfg.h \
   ra\fsp\inc\api\r_i2s_api.h ra\fsp\inc\instances\r_ssi.h \
   src\audio_capture.h src\net\cloud_asr_cfg.h src\net\cloud_asr_client.h \
+  src\net\cloud_speaker_cfg.h src\net\cloud_speaker_client.h \
   src\net\w800_at.h src\mvp\app_main.h src\ui\ui_state_machine.h \
   src\ui\ui_config.h src\drivers\drv_disp.h src\drivers\drv_touch.h

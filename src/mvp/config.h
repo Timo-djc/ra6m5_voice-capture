@@ -10,18 +10,14 @@
 #define CLOUD_HOST_NAME        ""
 #define CLOUD_HOST_IP          "172.20.10.6"
 #define CLOUD_PORT             (8000U)
-#define CLOUD_LOCAL_PORT       (0U)
 #define CLOUD_PATH             "/asr/recognize"
 
 #define DEVICE_ID              "ra6m5-w800-01"
 #define SAMPLE_RATE            (16000U)
 #define AUDIO_CHANNELS         (1U)
 
-#define HTTP_TIMEOUT_MS        (20000U)
-#define HTTP_SEND_TIMEOUT_MS   (30000U)
+#define HTTP_TIMEOUT_MS        (10000U)
 #define RETRY_COUNT            (2U)
-#define W800_HTTP_POST_SEND_GUARD_MS  (200U)
-#define W800_SKRCV_ERR4_NO_DATA_MAX   (8U)
 
 #define W800_UART_BAUD         (115200U)
 #define W800_CMD_TIMEOUT_MS    (1500U)
@@ -30,12 +26,6 @@
 
 #define W800_UART_RX_BUF_SIZE  (8192U)
 #define W800_LINE_BUF_SIZE     (384U)
-#define W800_SKSND_MAX_CHUNK   (512U)    /* UART raw-write sub-chunk within one SKSND transaction */
-#define W800_SKSND_MIN_TAIL    (256U)    /* avoid tiny last SKSND chunk (some FW may reject it) */
-#define W800_SKSND_HEALTH_CHECK_INTERVAL_BYTES (4096U) /* SKSTT cadence while uploading */
-#define W800_SKSND_INTER_CHUNK_DELAY_MS        (5U)    /* light pacing between SKSND chunks */
-#define W800_SKSND_MAX_RETRY   (8U)
-#define W800_SKSND_BACKOFF_MS  (100U)    /* initial backoff; doubles each retry */
 
 #define CLOUD_RX_BUFFER_SIZE   (12288U)
 #define CLOUD_TEXT_MAX_LEN     (256U)

@@ -612,7 +612,7 @@ int w800_wait_for_user_task(uint32_t timeout_ms)
     return MVP_ERR_TIMEOUT;
 }
 
-void uart6_callback(uart_callback_args_t * p_args)
+void mvp_uart6_callback(uart_callback_args_t * p_args)
 {
     if (NULL == p_args)
     {
@@ -659,7 +659,7 @@ void w800_hw_reset(void)
     w800_uart_drain_rx();
 }
 
-void uart5_callback(uart_callback_args_t * p_args)
+void mvp_uart5_callback(uart_callback_args_t * p_args)
 {
     /* MVP path does not use UART5 flash bridge. Keep symbol for FSP linkage. */
     (void) p_args;

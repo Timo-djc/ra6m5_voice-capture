@@ -719,6 +719,46 @@
               <FileType>5</FileType>
               <FilePath>.\src\audio_features.h</FilePath>
             </File>
+            <File>
+              <FileName>cloud_asr_client.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\net\cloud_asr_client.c</FilePath>
+            </File>
+            <File>
+              <FileName>cloud_speaker_client.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\net\cloud_speaker_client.c</FilePath>
+            </File>
+            <File>
+              <FileName>w800_at.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\net\w800_at.c</FilePath>
+            </File>
+            <File>
+              <FileName>cloud_asr_cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\net\cloud_asr_cfg.h</FilePath>
+            </File>
+            <File>
+              <FileName>cloud_asr_client.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\net\cloud_asr_client.h</FilePath>
+            </File>
+            <File>
+              <FileName>cloud_speaker_cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\net\cloud_speaker_cfg.h</FilePath>
+            </File>
+            <File>
+              <FileName>cloud_speaker_client.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\net\cloud_speaker_client.h</FilePath>
+            </File>
+            <File>
+              <FileName>w800_at.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\net\w800_at.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -728,6 +768,11 @@
               <FileName>app_main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\mvp\app_main.c</FilePath>
+            </File>
+            <File>
+              <FileName>cloud_speaker_demo_client.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\mvp\cloud_speaker_demo_client.c</FilePath>
             </File>
             <File>
               <FileName>cloud_http_client.c</FileName>

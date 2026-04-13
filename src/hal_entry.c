@@ -2,6 +2,8 @@
 #include "audio_capture.h"
 #include "net/cloud_asr_cfg.h"
 #include "net/cloud_asr_client.h"
+#include "net/cloud_speaker_cfg.h"
+#include "net/cloud_speaker_client.h"
 #include "net/w800_at.h"
 #include "mvp/app_main.h"
 #include "ui/ui_state_machine.h"
@@ -27,13 +29,23 @@ typedef enum
 {
     UI_CTRL_NONE = 0,
     UI_CTRL_STANDBY_START,
+    UI_CTRL_STANDBY_SPEAKER,
     UI_CTRL_FACE_ABORT,
     UI_CTRL_FACE_PROCEED,
     UI_CTRL_VOICE_REFRESH,
     UI_CTRL_VOICE_HOLD,
+    UI_CTRL_SPEAKER_IDENTIFY,
+    UI_CTRL_SPEAKER_ENROLL,
+    UI_CTRL_SPEAKER_BACK,
     UI_CTRL_RESULT_ACTION,
     UI_CTRL_RESULT_BYPASS
 } UIControl;
+
+typedef enum
+{
+    CLOUD_CLIENT_DIGIT = 0,
+    CLOUD_CLIENT_SPEAKER
+} CloudClientMode;
 
 static int s_challenge_digits[4] = {0, 0, 0, 0};
 static int s_recognized_digits[4] = {0, 0, 0, 0};
@@ -42,10 +54,14 @@ static bool s_result_passed = false;
 static bool s_infer_busy = false;
 
 static bool s_standby_pressed = false;
+static bool s_standby_speaker_pressed = false;
 static bool s_face_abort_pressed = false;
 static bool s_face_proceed_pressed = false;
 static bool s_voice_refresh_pressed = false;
 static bool s_voice_hold_pressed = false;
+static bool s_speaker_identify_pressed = false;
+static bool s_speaker_enroll_pressed = false;
+static bool s_speaker_back_pressed = false;
 static bool s_result_action_pressed = false;
 
 static bool s_bypass_holding = false;
@@ -56,6 +72,13 @@ static uint32_t s_voice_record_start_ms = 0U;
 static uint8_t s_voice_record_progress_pct = 0U;
 static uint8_t s_voice_progress_bucket = 0U;
 static uint8_t s_voice_record_slot_index = 0U;
+static bool s_speaker_busy = false;
+static bool s_speaker_enroll_active = false;
+static uint8_t s_speaker_enroll_next_idx = 0U;
+static uint8_t s_speaker_enroll_total = CLOUD_SPEAKER_ENROLL_REQUIRED;
+static char s_speaker_status_text[64];
+static char s_speaker_target_id[AUDIO_SPEAKER_ID_MAX_LEN + 1U] = CLOUD_SPEAKER_DEFAULT_ID;
+static CloudClientMode s_cloud_client_mode = CLOUD_CLIENT_DIGIT;
 
 static UIControl s_active_control = UI_CTRL_NONE;
 
@@ -101,6 +124,19 @@ static void reset_voice_record_session_state(void)
     s_voice_record_slot_index = 0U;
 }
 
+static void reset_speaker_session_state(void)
+{
+    s_speaker_busy = false;
+    s_speaker_enroll_active = false;
+    s_speaker_enroll_next_idx = 0U;
+    s_voice_recording_active = false;
+    s_voice_record_start_ms = 0U;
+    s_voice_record_progress_pct = 0U;
+    s_voice_progress_bucket = 0U;
+    s_voice_record_slot_index = 0U;
+    memset(s_speaker_status_text, 0, sizeof(s_speaker_status_text));
+}
+
 static void start_voice_record_slot(uint8_t slot_index)
 {
     uint32_t base_ms;
@@ -120,6 +156,53 @@ static void start_voice_record_slot(uint8_t slot_index)
     s_voice_progress_bucket = (uint8_t) (s_voice_record_progress_pct / UI_PROGRESS_BUCKET_STEP_PCT);
 
     audio_capture_ptt_press();
+}
+
+static void start_speaker_record_slot(uint8_t slot_index)
+{
+    uint32_t base_ms = 0U;
+
+    if (slot_index >= s_speaker_enroll_total)
+    {
+        slot_index = (uint8_t) (s_speaker_enroll_total - 1U);
+    }
+
+    s_voice_recording_active = true;
+    s_voice_record_slot_index = slot_index;
+    s_voice_record_start_ms = ui_now_ms();
+
+    if (s_speaker_enroll_active)
+    {
+        base_ms = (uint32_t) slot_index * UI_RECORD_MS;
+        s_voice_record_progress_pct = (uint8_t) ((base_ms * 100U) / (UI_RECORD_MS * s_speaker_enroll_total));
+    }
+    else
+    {
+        s_voice_record_progress_pct = 0U;
+    }
+    s_voice_progress_bucket = (uint8_t) (s_voice_record_progress_pct / UI_PROGRESS_BUCKET_STEP_PCT);
+    audio_capture_ptt_press();
+}
+
+static void switch_cloud_client_mode(CloudClientMode mode)
+{
+    if (mode == s_cloud_client_mode)
+    {
+        return;
+    }
+
+    if (CLOUD_CLIENT_SPEAKER == mode)
+    {
+        cloud_asr_client_suspend();
+        cloud_speaker_client_restart();
+    }
+    else
+    {
+        cloud_speaker_client_suspend();
+        cloud_asr_client_restart();
+    }
+
+    s_cloud_client_mode = mode;
 }
 
 static void reset_recognized_digits(void)
@@ -147,6 +230,9 @@ static void set_control_pressed(UIControl control, bool pressed)
         case UI_CTRL_STANDBY_START:
             s_standby_pressed = pressed;
             break;
+        case UI_CTRL_STANDBY_SPEAKER:
+            s_standby_speaker_pressed = pressed;
+            break;
         case UI_CTRL_FACE_ABORT:
             s_face_abort_pressed = pressed;
             break;
@@ -159,6 +245,15 @@ static void set_control_pressed(UIControl control, bool pressed)
         case UI_CTRL_VOICE_HOLD:
             s_voice_hold_pressed = pressed;
             break;
+        case UI_CTRL_SPEAKER_IDENTIFY:
+            s_speaker_identify_pressed = pressed;
+            break;
+        case UI_CTRL_SPEAKER_ENROLL:
+            s_speaker_enroll_pressed = pressed;
+            break;
+        case UI_CTRL_SPEAKER_BACK:
+            s_speaker_back_pressed = pressed;
+            break;
         case UI_CTRL_RESULT_ACTION:
             s_result_action_pressed = pressed;
             break;
@@ -170,10 +265,14 @@ static void set_control_pressed(UIControl control, bool pressed)
 static void clear_all_pressed(void)
 {
     s_standby_pressed = false;
+    s_standby_speaker_pressed = false;
     s_face_abort_pressed = false;
     s_face_proceed_pressed = false;
     s_voice_refresh_pressed = false;
     s_voice_hold_pressed = false;
+    s_speaker_identify_pressed = false;
+    s_speaker_enroll_pressed = false;
+    s_speaker_back_pressed = false;
     s_result_action_pressed = false;
 }
 
@@ -182,7 +281,15 @@ static UIControl hit_test_control(uint16_t x, uint16_t y)
     switch (current_state)
     {
         case UI_STATE_STANDBY:
-            return UI_PointInRect(x, y, UI_GetStandbyStartRect()) ? UI_CTRL_STANDBY_START : UI_CTRL_NONE;
+            if (UI_PointInRect(x, y, UI_GetStandbyStartRect()))
+            {
+                return UI_CTRL_STANDBY_START;
+            }
+            if (UI_PointInRect(x, y, UI_GetStandbySpeakerRect()))
+            {
+                return UI_CTRL_STANDBY_SPEAKER;
+            }
+            return UI_CTRL_NONE;
 
         case UI_STATE_FACE_LOCKED:
             if (UI_PointInRect(x, y, UI_GetFaceAbortRect()))
@@ -221,6 +328,21 @@ static UIControl hit_test_control(uint16_t x, uint16_t y)
             }
             return UI_CTRL_NONE;
 
+        case UI_STATE_SPEAKER_MODE:
+            if (UI_PointInRect(x, y, UI_GetSpeakerIdentifyRect()))
+            {
+                return UI_CTRL_SPEAKER_IDENTIFY;
+            }
+            if (UI_PointInRect(x, y, UI_GetSpeakerEnrollRect()))
+            {
+                return UI_CTRL_SPEAKER_ENROLL;
+            }
+            if (UI_PointInRect(x, y, UI_GetSpeakerBackRect()))
+            {
+                return UI_CTRL_SPEAKER_BACK;
+            }
+            return UI_CTRL_NONE;
+
         default:
             return UI_CTRL_NONE;
     }
@@ -231,7 +353,7 @@ static void render_ui(DisplayDevice * disp)
     switch (current_state)
     {
         case UI_STATE_STANDBY:
-            UI_DrawStandby(s_standby_pressed);
+            UI_DrawStandby(s_standby_pressed, s_standby_speaker_pressed);
             break;
 
         case UI_STATE_FACE_LOCKED:
@@ -252,6 +374,17 @@ static void render_ui(DisplayDevice * disp)
             UI_DrawResult(s_result_passed, s_recognized_digits, s_result_action_pressed);
             break;
 
+        case UI_STATE_SPEAKER_MODE:
+            UI_DrawSpeakerMode(s_speaker_target_id,
+                               s_speaker_status_text,
+                               s_speaker_identify_pressed,
+                               s_speaker_enroll_pressed,
+                               s_speaker_back_pressed,
+                               s_speaker_busy,
+                               s_voice_recording_active,
+                               s_voice_record_progress_pct);
+            break;
+
         default:
             break;
     }
@@ -270,6 +403,10 @@ static void render_control_feedback(DisplayDevice * disp, UIControl control)
             if (UI_CTRL_STANDBY_START == control)
             {
                 UI_RedrawStandbyStartButton(s_standby_pressed);
+            }
+            else if (UI_CTRL_STANDBY_SPEAKER == control)
+            {
+                UI_RedrawStandbySpeakerButton(s_standby_speaker_pressed);
             }
             break;
 
@@ -302,6 +439,21 @@ static void render_control_feedback(DisplayDevice * disp, UIControl control)
             }
             break;
 
+        case UI_STATE_SPEAKER_MODE:
+            if (UI_CTRL_SPEAKER_IDENTIFY == control)
+            {
+                UI_RedrawSpeakerIdentifyButton(s_speaker_identify_pressed, s_speaker_busy, s_voice_recording_active);
+            }
+            else if (UI_CTRL_SPEAKER_ENROLL == control)
+            {
+                UI_RedrawSpeakerEnrollButton(s_speaker_enroll_pressed, s_speaker_busy, s_voice_recording_active);
+            }
+            else if (UI_CTRL_SPEAKER_BACK == control)
+            {
+                UI_RedrawSpeakerBackButton(s_speaker_back_pressed);
+            }
+            break;
+
         default:
             break;
     }
@@ -314,6 +466,7 @@ static void render_control_feedback(DisplayDevice * disp, UIControl control)
 
 static void enter_voice_auth(DisplayDevice * disp)
 {
+    switch_cloud_client_mode(CLOUD_CLIENT_DIGIT);
     current_state = UI_STATE_VOICE_AUTH;
     s_auth_progress = 0U;
     s_infer_busy = false;
@@ -321,6 +474,17 @@ static void enter_voice_auth(DisplayDevice * disp)
     reset_voice_record_session_state();
     reset_recognized_digits();
     generate_challenge_digits();
+    clear_all_pressed();
+    render_ui(disp);
+}
+
+static void enter_speaker_mode(DisplayDevice * disp)
+{
+    switch_cloud_client_mode(CLOUD_CLIENT_SPEAKER);
+    current_state = UI_STATE_SPEAKER_MODE;
+    s_infer_busy = false;
+    s_bypass_holding = false;
+    reset_speaker_session_state();
     clear_all_pressed();
     render_ui(disp);
 }
@@ -338,12 +502,14 @@ static void enter_result(DisplayDevice * disp, bool is_passed)
 
 static void reset_to_standby(DisplayDevice * disp)
 {
+    switch_cloud_client_mode(CLOUD_CLIENT_DIGIT);
     current_state = UI_STATE_STANDBY;
     s_auth_progress = 0U;
     s_result_passed = false;
     s_infer_busy = false;
     s_bypass_holding = false;
     reset_voice_record_session_state();
+    reset_speaker_session_state();
     s_active_control = UI_CTRL_NONE;
     clear_all_pressed();
     render_ui(disp);
@@ -358,6 +524,10 @@ static void on_control_release(UIControl control, DisplayDevice * disp)
             current_state = UI_STATE_FACE_LOCKED;
             clear_all_pressed();
             render_ui(disp);
+            break;
+
+        case UI_CTRL_STANDBY_SPEAKER:
+            enter_speaker_mode(disp);
             break;
 
         case UI_CTRL_FACE_ABORT:
@@ -395,6 +565,41 @@ static void on_control_release(UIControl control, DisplayDevice * disp)
                 clear_all_pressed();
                 render_ui(disp);
             }
+            break;
+
+        case UI_CTRL_SPEAKER_IDENTIFY:
+            if ((!s_speaker_busy) && cloud_speaker_client_start_identify())
+            {
+                s_speaker_busy = true;
+                snprintf(s_speaker_status_text, sizeof(s_speaker_status_text), "IDENTIFY CAPTURE");
+                start_speaker_record_slot(0U);
+                clear_all_pressed();
+                render_ui(disp);
+            }
+            break;
+
+        case UI_CTRL_SPEAKER_ENROLL:
+            if (!s_speaker_busy)
+            {
+                s_speaker_enroll_active = true;
+                s_speaker_enroll_next_idx = 1U;
+                if (cloud_speaker_client_start_enroll(s_speaker_target_id, s_speaker_enroll_next_idx, s_speaker_enroll_total))
+                {
+                    s_speaker_busy = true;
+                    snprintf(s_speaker_status_text, sizeof(s_speaker_status_text), "ENROLL %u/%u", (unsigned int) s_speaker_enroll_next_idx, (unsigned int) s_speaker_enroll_total);
+                    start_speaker_record_slot(0U);
+                    clear_all_pressed();
+                    render_ui(disp);
+                }
+                else
+                {
+                    s_speaker_enroll_active = false;
+                }
+            }
+            break;
+
+        case UI_CTRL_SPEAKER_BACK:
+            reset_to_standby(disp);
             break;
 
         default:
@@ -456,6 +661,96 @@ static void MAYBE_UNUSED process_voice_digit_result(DisplayDevice * disp)
     enter_result(disp, false);
 }
 
+static void MAYBE_UNUSED process_speaker_result(DisplayDevice * disp)
+{
+    audio_speaker_result_t result;
+    int score_milli;
+
+    if (!audio_capture_consume_speaker_result(&result))
+    {
+        return;
+    }
+
+    score_milli = (int) (result.score * 1000.0f);
+    s_speaker_busy = false;
+    s_voice_recording_active = false;
+    s_speaker_enroll_active = false;
+    s_speaker_enroll_next_idx = 0U;
+    s_voice_record_progress_pct = 100U;
+
+    if (current_state != UI_STATE_SPEAKER_MODE)
+    {
+        return;
+    }
+
+    if (result.known)
+    {
+        snprintf(s_speaker_status_text,
+                 sizeof(s_speaker_status_text),
+                 "MATCH %s %d.%03d",
+                 result.speaker_id,
+                 score_milli / 1000,
+                 score_milli % 1000);
+    }
+    else
+    {
+        snprintf(s_speaker_status_text,
+                 sizeof(s_speaker_status_text),
+                 "UNKNOWN %d.%03d",
+                 score_milli / 1000,
+                 score_milli % 1000);
+    }
+
+    render_ui(disp);
+}
+
+static void MAYBE_UNUSED process_speaker_enroll_progress(DisplayDevice * disp)
+{
+    audio_speaker_enroll_progress_t progress;
+
+    if (!audio_capture_consume_enroll_progress(&progress))
+    {
+        return;
+    }
+
+    if (current_state != UI_STATE_SPEAKER_MODE)
+    {
+        return;
+    }
+
+    s_voice_recording_active = false;
+    s_voice_record_progress_pct = (progress.required > 0U) ?
+                                  (uint8_t) (((uint32_t) progress.accepted * 100U) / progress.required) :
+                                  0U;
+
+    if (progress.accepted < progress.required)
+    {
+        s_speaker_enroll_active = true;
+        s_speaker_enroll_next_idx = (uint8_t) (progress.accepted + 1U);
+        snprintf(s_speaker_status_text,
+                 sizeof(s_speaker_status_text),
+                 "ENROLL %u/%u OK",
+                 (unsigned int) progress.accepted,
+                 (unsigned int) progress.required);
+        if (cloud_speaker_client_start_enroll(progress.speaker_id, s_speaker_enroll_next_idx, progress.required))
+        {
+            start_speaker_record_slot((uint8_t) progress.accepted);
+        }
+    }
+    else
+    {
+        s_speaker_busy = false;
+        s_speaker_enroll_active = false;
+        s_speaker_enroll_next_idx = 0U;
+        snprintf(s_speaker_status_text,
+                 sizeof(s_speaker_status_text),
+                 "ENROLL DONE %s",
+                 progress.speaker_id);
+    }
+
+    render_ui(disp);
+}
+
 static void MAYBE_UNUSED handle_touch_event(const TouchEvent * event, DisplayDevice * disp)
 {
     UIControl hit;
@@ -477,6 +772,13 @@ static void MAYBE_UNUSED handle_touch_event(const TouchEvent * event, DisplayDev
 
         if ((UI_CTRL_VOICE_HOLD == hit) &&
             (s_voice_recording_active || s_voice_session_active || s_infer_busy))
+        {
+            s_active_control = UI_CTRL_NONE;
+            return;
+        }
+
+        if (((UI_CTRL_SPEAKER_IDENTIFY == hit) || (UI_CTRL_SPEAKER_ENROLL == hit)) &&
+            (s_speaker_busy || s_voice_recording_active))
         {
             s_active_control = UI_CTRL_NONE;
             return;
@@ -508,9 +810,13 @@ static void MAYBE_UNUSED handle_touch_event(const TouchEvent * event, DisplayDev
             switch (s_active_control)
             {
                 case UI_CTRL_STANDBY_START: was_pressed = s_standby_pressed; break;
+                case UI_CTRL_STANDBY_SPEAKER: was_pressed = s_standby_speaker_pressed; break;
                 case UI_CTRL_FACE_ABORT: was_pressed = s_face_abort_pressed; break;
                 case UI_CTRL_FACE_PROCEED: was_pressed = s_face_proceed_pressed; break;
                 case UI_CTRL_VOICE_REFRESH: was_pressed = s_voice_refresh_pressed; break;
+                case UI_CTRL_SPEAKER_IDENTIFY: was_pressed = s_speaker_identify_pressed; break;
+                case UI_CTRL_SPEAKER_ENROLL: was_pressed = s_speaker_enroll_pressed; break;
+                case UI_CTRL_SPEAKER_BACK: was_pressed = s_speaker_back_pressed; break;
                 case UI_CTRL_RESULT_ACTION: was_pressed = s_result_action_pressed; break;
                 default: break;
             }
@@ -601,6 +907,7 @@ void hal_entry(void)
     audio_capture_init();
     audio_capture_start();
     cloud_asr_client_init();
+    cloud_speaker_client_suspend();
 
     send_control_line("BOOT: audio ok, init LCD...\r\n");
 
@@ -644,11 +951,25 @@ void hal_entry(void)
         {
             if (bridge_active)
             {
-                cloud_asr_client_suspend();
+                if (CLOUD_CLIENT_SPEAKER == s_cloud_client_mode)
+                {
+                    cloud_speaker_client_suspend();
+                }
+                else
+                {
+                    cloud_asr_client_suspend();
+                }
             }
             else
             {
-                cloud_asr_client_restart();
+                if (CLOUD_CLIENT_SPEAKER == s_cloud_client_mode)
+                {
+                    cloud_speaker_client_restart();
+                }
+                else
+                {
+                    cloud_asr_client_restart();
+                }
             }
 
             s_w800_bridge_prev_active = bridge_active;
@@ -656,7 +977,14 @@ void hal_entry(void)
 
         if (!bridge_active)
         {
-            cloud_asr_client_poll();
+            if (CLOUD_CLIENT_SPEAKER == s_cloud_client_mode)
+            {
+                cloud_speaker_client_poll();
+            }
+            else
+            {
+                cloud_asr_client_poll();
+            }
         }
         else
         {
@@ -670,18 +998,22 @@ void hal_entry(void)
 
         now_ms = ui_now_ms();
 
-        if ((current_state == UI_STATE_VOICE_AUTH) && s_voice_recording_active)
+        if (((current_state == UI_STATE_VOICE_AUTH) || (current_state == UI_STATE_SPEAKER_MODE)) && s_voice_recording_active)
         {
             uint32_t elapsed_ms = now_ms - s_voice_record_start_ms;
             uint8_t progress_pct;
             uint8_t progress_bucket;
             uint32_t total_ms;
+            uint32_t total_window_ms;
 
             if (elapsed_ms >= UI_RECORD_MS)
             {
                 audio_capture_ptt_release();
                 s_voice_recording_active = false;
-                s_infer_busy = true;
+                if (UI_STATE_VOICE_AUTH == current_state)
+                {
+                    s_infer_busy = true;
+                }
 
                 total_ms = (uint32_t) (s_voice_record_slot_index + 1U) * UI_RECORD_MS;
             }
@@ -690,7 +1022,10 @@ void hal_entry(void)
                 total_ms = ((uint32_t) s_voice_record_slot_index * UI_RECORD_MS) + elapsed_ms;
             }
 
-            progress_pct = (uint8_t) ((total_ms * 100U) / UI_TOTAL_RECORD_MS);
+            total_window_ms = (UI_STATE_SPEAKER_MODE == current_state) ?
+                              (s_speaker_enroll_active ? ((uint32_t) s_speaker_enroll_total * UI_RECORD_MS) : UI_RECORD_MS) :
+                              UI_TOTAL_RECORD_MS;
+            progress_pct = (uint8_t) ((total_ms * 100U) / total_window_ms);
             if (progress_pct > 100U)
             {
                 progress_pct = 100U;
@@ -730,6 +1065,8 @@ void hal_entry(void)
 
         audio_capture_run_inference_if_ready();
         process_voice_digit_result(ptDispDev);
+        process_speaker_enroll_progress(ptDispDev);
+        process_speaker_result(ptDispDev);
 
 #if ASR_MODE_CLOUD
         R_BSP_SoftwareDelay(2U, BSP_DELAY_UNITS_MILLISECONDS);

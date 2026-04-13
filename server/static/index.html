@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Speaker Console</title>
+  <link rel="stylesheet" href="/static/styles.css?v=20260311b">
+  <script src="/static/app.js?v=20260311b" defer></script>
+</head>
+<body>
+  <div class="page-bg"></div>
+  <main class="app-shell">
+    <section class="hero panel">
+      <div>
+        <p class="eyebrow">Speaker Console</p>
+        <h1>注册、测试、MCU 中转，一页看清楚</h1>
+      </div>
+      <p class="hero-copy">
+        页面会区分 PC 直接流程和 MCU 中转流程，集中展示已注册 ID、最新测试结果、邮件状态和最近历史。导出给 MCU 的流程只负责生成数据并等待板端回传，不会远程控制板子。
+      </p>
+    </section>
+
+    <section class="dashboard-grid">
+      <aside class="panel sidebar">
+        <div class="section-head compact">
+          <div>
+            <p class="section-kicker">Registered IDs</p>
+            <h2>已注册说话人</h2>
+          </div>
+          <button id="refreshBtn" type="button" class="ghost-btn">刷新</button>
+        </div>
+        <div id="speakerList" class="speaker-list" aria-live="polite"></div>
+      </aside>
+
+      <div class="main-stack">
+        <section class="panel control-panel">
+          <div class="section-head">
+            <div>
+              <p class="section-kicker">Workspace</p>
+              <h2>当前目标</h2>
+            </div>
+          </div>
+
+          <label class="field" for="speakerIdInput">
+            <span>speaker_id</span>
+            <input id="speakerIdInput" type="text" inputmode="latin" autocomplete="off" placeholder="speaker1" maxlength="32">
+          </label>
+
+          <div class="status-strip">
+            <article class="status-tile">
+              <span>当前阶段</span>
+              <strong id="phaseText">空闲</strong>
+            </article>
+            <article class="status-tile">
+              <span>录音倒计时</span>
+              <strong id="countdownText">-</strong>
+            </article>
+            <article class="status-tile wide">
+              <span>MCU 等待状态</span>
+              <strong id="pendingText">无</strong>
+            </article>
+          </div>
+
+          <div class="backend-strip">
+            <article class="status-tile">
+              <span>Configured Backend</span>
+              <strong id="backendConfiguredText">--</strong>
+            </article>
+            <article class="status-tile">
+              <span>Effective Backend</span>
+              <strong id="backendEffectiveText">--</strong>
+            </article>
+            <article class="status-tile">
+              <span>Identify Strategy</span>
+              <strong id="backendStrategyText">--</strong>
+            </article>
+            <article id="backendStatusNote" class="status-tile backend-note">
+              <span>Model / Note</span>
+              <strong id="backendMessageText">--</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="workflow-grid">
+          <section class="panel workflow-section">
+            <div class="section-head">
+              <div>
+                <p class="section-kicker">Register</p>
+                <h2>注册流程</h2>
+              </div>
+            </div>
+            <div class="action-grid two-up">
+              <article class="action-card action-card-primary">
+                <div>
+                  <span class="action-badge">PC 直接</span>
+                  <h3>直接注册到服务端</h3>
+                  <p>删除同名旧数据后，连续录制 3 段 6 秒语音，直接写入注册库。</p>
+                </div>
+                <button id="registerDirectBtn" type="button" class="primary-btn">开始直接注册</button>
+              </article>
+              <article class="action-card action-card-secondary">
+                <div>
+                  <span class="action-badge amber">MCU 中转</span>
+                  <h3>导出给 MCU 回传注册</h3>
+                  <p>删除同名旧数据后，录制 3 段语音并生成 MCU demo 数据，等待板端回传注册。</p>
+                </div>
+                <button id="registerRelayBtn" type="button" class="secondary-btn">导出注册到 MCU</button>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel workflow-section">
+            <div class="section-head">
+              <div>
+                <p class="section-kicker">Identify</p>
+                <h2>测试流程</h2>
+              </div>
+            </div>
+            <div class="action-grid two-up">
+              <article class="action-card action-card-primary">
+                <div>
+                  <span class="action-badge">PC 直接</span>
+                  <h3>直接测试</h3>
+                  <p>录制 1 段 6 秒语音，立即识别，结果和邮件状态会直接更新到结果区。</p>
+                </div>
+                <button id="testDirectBtn" type="button" class="primary-btn">开始直接测试</button>
+              </article>
+              <article class="action-card action-card-secondary">
+                <div>
+                  <span class="action-badge amber">MCU 中转</span>
+                  <h3>导出给 MCU 回传测试</h3>
+                  <p>录制 1 段测试语音并导出到 MCU demo，页面会轮询等待 MCU 回传结果。</p>
+                </div>
+                <button id="testRelayBtn" type="button" class="secondary-btn">导出测试到 MCU</button>
+              </article>
+            </div>
+          </section>
+        </section>
+
+        <section class="results-grid">
+          <section class="panel result-panel">
+            <div class="section-head compact">
+              <div>
+                <p class="section-kicker">Latest Result</p>
+                <h2>最新测试结果</h2>
+              </div>
+            </div>
+            <div class="metric-grid">
+              <article class="metric-card">
+                <span>来源</span>
+                <strong id="latestFlowText">--</strong>
+              </article>
+              <article class="metric-card">
+                <span>预期 ID</span>
+                <strong id="latestExpectedText">--</strong>
+              </article>
+              <article class="metric-card">
+                <span>识别结果</span>
+                <strong id="latestActualText">--</strong>
+              </article>
+              <article class="metric-card">
+                <span>是否通过</span>
+                <strong id="latestPassedText">--</strong>
+              </article>
+              <article class="metric-card">
+                <span>得分</span>
+                <strong id="latestScoreText">--</strong>
+              </article>
+              <article class="metric-card">
+                <span>Margin</span>
+                <strong id="latestMarginText">--</strong>
+              </article>
+              <article class="metric-card wide">
+                <span>记录时间</span>
+                <strong id="latestTimeText">--</strong>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel result-panel">
+            <div class="section-head compact">
+              <div>
+                <p class="section-kicker">Mail Status</p>
+                <h2>邮件状态</h2>
+              </div>
+            </div>
+            <div class="metric-grid mail-grid">
+              <article class="metric-card">
+                <span>是否尝试</span>
+                <strong id="mailAttemptText">--</strong>
+              </article>
+              <article class="metric-card">
+                <span>是否发送成功</span>
+                <strong id="mailSentText">--</strong>
+              </article>
+              <article class="metric-card wide">
+                <span>失败原因</span>
+                <strong id="mailErrorText">--</strong>
+              </article>
+            </div>
+          </section>
+        </section>
+
+        <section class="panel history-panel">
+          <div class="section-head compact">
+            <div>
+              <p class="section-kicker">Recent History</p>
+              <h2>最近测试历史</h2>
+            </div>
+          </div>
+          <div class="history-table-wrap">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>时间</th>
+                  <th>来源</th>
+                  <th>预期 ID</th>
+                  <th>识别结果</th>
+                  <th>通过</th>
+                  <th>邮件</th>
+                </tr>
+              </thead>
+              <tbody id="historyTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="detail-grid">
+          <section class="panel feed-panel">
+            <div class="section-head compact">
+              <div>
+                <p class="section-kicker">Activity</p>
+                <h2>操作动态</h2>
+              </div>
+            </div>
+            <ul id="activityList" class="activity-list"></ul>
+          </section>
+
+          <section class="panel danger-panel">
+            <div class="section-head compact">
+              <div>
+                <p class="section-kicker danger">Danger Zone</p>
+                <h2>数据重置</h2>
+              </div>
+            </div>
+            <p class="danger-copy">清空当前运行数据：speaker 数据库、注册样本、测试历史、MCU 导出数据和生成的 demo 音频文件。</p>
+            <button id="resetDataBtn" type="button" class="danger-btn">清空全部数据</button>
+          </section>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="confirmDialog" class="confirm-dialog">
+    <form method="dialog" class="confirm-card">
+      <p class="dialog-kicker">确认操作</p>
+      <h3>确认清空全部运行数据？</h3>
+      <p>这会删除当前已注册 speaker、测试历史、MCU 导出语音，以及生成的 demo 音频文件。</p>
+      <div class="dialog-actions">
+        <button id="confirmCancelBtn" type="submit" value="cancel" class="ghost-btn">取消</button>
+        <button id="confirmResetBtn" type="submit" value="confirm" class="danger-btn">确认清空</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

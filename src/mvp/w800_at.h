@@ -33,7 +33,7 @@ bool w800_tx_idle(void);
 
 void w800_hw_reset(void);
 
-void uart5_callback(uart_callback_args_t * p_args);
-void uart6_callback(uart_callback_args_t * p_args);
+void mvp_uart5_callback(uart_callback_args_t * p_args);
+void mvp_uart6_callback(uart_callback_args_t * p_args);
 
 #endif
